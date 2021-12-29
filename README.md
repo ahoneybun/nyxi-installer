@@ -25,7 +25,7 @@ https://nixos.org/manual/nixos/stable/index.html#sec-installation-booting-networ
 ## Start the installer
 
 ```
-curl https://gitlab.com/ahoneybun/arch-itect/-/raw/nix-os-/install.sh > install.sh; sh install.sh
+curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/install.sh > install.sh; sh install.sh
 ```
 
 The following will happen:
