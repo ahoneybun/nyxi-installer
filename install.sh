@@ -104,14 +104,11 @@ sudo sed -i 's/# time.timeZone/time.timeZone/g' /mnt/etc/nixos/configuration.nix
 sudo sed -i 's/"Europe/Amsterdam"/"America/Denver"/g' /mnt/etc/nixos/configuration.nix
 sudo sed -i 's/# i18n.defaultLocale/i18n.defaultLocale/g' /mnt/etc/nixos/configuration.nix
 
-# sudo sed -i 's/# console = {/console = {/g' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's/# font = "Lat2-Terminus16";/font = "Lat2-Terminus16";/g' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's/# keyMap/keyMap = {/g' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's/# };/};/g' /mnt/etc/nixos/configuration.nix
-
 # Enable Audio
 sudo sed -i 's/# sound.enable/sound.enable/g' /mnt/etc/nixos/configuration.nix
 sudo sed -i 's/# hardware.pulseaudio.enable/hardware.pulseaudio.enable/g' /mnt/etc/nixos/configuration.nix
+
+sed -n -f config.sed /mnt/etc/nixos/configuration.nix
 
 # Install
 sudo nixos-install
