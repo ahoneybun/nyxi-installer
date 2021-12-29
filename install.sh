@@ -99,9 +99,11 @@ sudo mount $efiName /mnt/boot
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
-# Edit Language and Time Zone
-sudo sed -i 's/# time.timeZone = "Europe/Amsterdam";/time.timeZone = "America/Denver";/g' /mnt/etc/nixos/configuration.nix
-sudo sed -i 's/# i18n.defaultLocale = "en_US.UTF=8"/i18n.defaultLocale = "en_US.UTF=8"/g' /mnt/etc/nixos/configuration.nix
+# Edit Time Zone
+sudo sed -i 's/# time.timeZone/time.timeZone/g' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/"Europe/Amsterdam"/"America/Denver"/g' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# i18n.defaultLocale/i18n.defaultLocale/g' /mnt/etc/nixos/configuration.nix
+
 # sudo sed -i 's/# console = {/console = {/g' /mnt/etc/nixos/configuration.nix
 # sudo sed -i 's/# font = "Lat2-Terminus16";/font = "Lat2-Terminus16";/g' /mnt/etc/nixos/configuration.nix
 # sudo sed -i 's/# keyMap/keyMap = {/g' /mnt/etc/nixos/configuration.nix
@@ -111,17 +113,11 @@ sudo sed -i 's/# i18n.defaultLocale = "en_US.UTF=8"/i18n.defaultLocale = "en_US.
 sudo sed -i 's/# sound.enable/sound.enable/g' /mnt/etc/nixos/configuration.nix
 sudo sed -i 's/# hardware.pulseaudio.enable/hardware.pulseaudio.enable/g' /mnt/etc/nixos/configuration.nix
 
-# Generate fstab file.
-# genfstab -U /mnt >> /mnt/etc/fstab
-
 # Install
 sudo nixos-install
 
 # Fetch script for `arch-chroot`.
 # curl https://gitlab.com/ahoneybun/arch-itect/-/raw/main/setup.sh > /mnt/setup.sh
-
-# Change root into the new system & run script.
-#arch-chroot /mnt sh setup.sh
 
 # Removed downloaded script.
 rm install.sh
