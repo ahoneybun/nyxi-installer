@@ -107,6 +107,10 @@ sudo sed -i 's/# i18n.defaultLocale = "en_US.UTF=8"/i18n.defaultLocale = "en_US.
 # sudo sed -i 's/# keyMap/keyMap = {/g' /mnt/etc/nixos/configuration.nix
 # sudo sed -i 's/# };/};/g' /mnt/etc/nixos/configuration.nix
 
+# Enable Audio
+sudo sed -i 's/# sound.enable/sound.enable/g' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# hardware.pulseaudio.enable/hardware.pulseaudio.enable/g' /mnt/etc/nixos/configuration.nix
+
 # Generate fstab file.
 # genfstab -U /mnt >> /mnt/etc/fstab
 
