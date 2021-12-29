@@ -35,17 +35,6 @@ echo ""
 echo "Which drive do we want to use for this installation?"
 read driveName
 
-echo "----------"
-echo ""
-echo "Enable Hibernation?"
-echo "1) Yes"
-echo "2) No"
-echo -n "Enter choice: "; read hibState
-
-case "$hibState" in
-
-1)
-
 (
 echo g       # Create new GPT partition table
 echo n       # Create new partition (for EFI).
@@ -69,35 +58,6 @@ echo 3       # Pick third partition.
 echo 19      # Change third partition to Linux swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
-;;
-
-2) 
-
-(
-echo g       # Create new GPT partition table
-echo n       # Create new partition (for EFI).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo +512M   # Set +512M as last sector.
-echo n       # Create new partition (for root).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo -4096M  # Set -4096 as last sector.
-echo n       # Create new partition (for swap).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo         # Set default last sector (rest of the disk).
-echo t       # Change partition type.
-echo 1       # Pick first partition.
-echo 1       # Change first partition to EFI system.
-echo t       # Change partition type.
-echo 3       # Pick third partition.
-echo 19      # Change third partition to Linux swap.
-echo w       # write changes. 
-) | sudo fdisk $driveName -w always -W always
-;;
-
-esac
 
 # List the new partitions.
 lsblk -f
@@ -138,6 +98,9 @@ sudo mount $efiName /mnt/boot
 
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
+
+# Edit Language and Time Zone
+sed -i 's/# time.timeZone = "Europe/Amsterdam"/time.timeZone = "America/Denver"/g' /mnt/etc/nixos/configuration.nix
 
 # Generate fstab file.
 # genfstab -U /mnt >> /mnt/etc/fstab
