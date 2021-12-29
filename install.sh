@@ -101,7 +101,7 @@ sudo nixos-generate-config --root /mnt
 
 # Edit Language and Time Zone
 sudo sed -i 's/# time.timeZone = "Europe/Amsterdam";/time.timeZone = "America/Denver";/g' /mnt/etc/nixos/configuration.nix
-sudo sed -i 's/# i18n.defaultLocalte = "en_US.UTF=8"/i18n.defaultLocalte = "en_US.UTF=8"/g' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# i18n.defaultLocale = "en_US.UTF=8"/i18n.defaultLocale = "en_US.UTF=8"/g' /mnt/etc/nixos/configuration.nix
 sudo sed -i 's/# console = {/console = {/g' /mnt/etc/nixos/configuration.nix
 sudo sed -i 's/# font = "Lat2-Terminus16";/font = "Lat2-Terminus16";/g' /mnt/etc/nixos/configuration.nix
 sudo sed -i 's/# keyMap/keyMap = {/g' /mnt/etc/nixos/configuration.nix
