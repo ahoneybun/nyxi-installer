@@ -6,14 +6,6 @@
 # 2. Use  `loadkeys [keymap]` to set keyboard layout.
 #    ex : `loadkeys de-latin1` to set a german keyboard layout.
 
-# Check if system is booted in UEFI mode.
-if [ ! -d "/sys/firmware/efi/efivars" ] 
-then
-    # If not, then exit installer.
-    echo "[Error!] System is not booted in UEFI mode. Please boot in UEFI mode & try again."
-    exit 9999
-fi
-
 # Figure out how much RAM the system has an set a variable
 # ramTotal=$(grep MemTotal /proc/meminfo | awk '{print $2 / 1024 / 1024}')
 ramTotal=$(free | awk '/^Mem:/{print $2 / 1024 / 1024}'  | awk -F. {'print$1'})
@@ -24,6 +16,9 @@ ramTotal=$(free | awk '/^Mem:/{print $2 / 1024 / 1024}'  | awk -F. {'print$1'})
 # Load kernel modules
 # modprobe dm-crypt
 # modprobe dm-mod
+
+# Switch to root
+sudo -i
 
 # Detect and list the drives.
 lsblk -f
@@ -57,7 +52,7 @@ echo t       # Change partition type.
 echo 3       # Pick third partition.
 echo 19      # Change third partition to Linux swap.
 echo w       # write changes. 
-) | sudo fdisk $driveName -w always -W always
+) | fdisk $driveName -w always -W always
 
 # List the new partitions.
 lsblk -f
@@ -82,44 +77,44 @@ read swapName
 # Open the encrypted root partition
 # sudo cryptsetup luksOpen $rootName crypt-root
 
-sudo mkfs.fat -F32 -n EFI $efiName # EFI partition
-sudo mkfs.ext4 -L root $rootName # /   partition
-sudo mkswap -L swap $swapName # swap partition
+mkfs.fat -F32 -n EFI $efiName # EFI partition
+mkfs.ext4 -L root $rootName # /   partition
+mkswap -L swap $swapName # swap partition
 
 # 0. Mount the filesystems.
-sudo mount $rootName /mnt
-sudo swapon $swapName
+mount $rootName /mnt
+swapon $swapName
 
 # 1. Create directory to mount EFI partition.
-sudo mkdir /mnt/boot/
+mkdir /mnt/boot/
 
 # 2.Mount the EFI partition.
-sudo mount $efiName /mnt/boot
+mount $efiName /mnt/boot
 
 # Generate Nix configuration
-sudo nixos-generate-config --root /mnt
+nixos-generate-config --root /mnt
 
 # wget https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config.sed
 
 # Edit Time Zone
-sudo sed -i 's/# time.timeZone/time.timeZone/' /mnt/etc/nixos/configuration.nix
-sudo sed -i 's/"Europe/Amsterdam"/"America/Denver"/' /mnt/etc/nixos/configuration.nix
-sudo sed -i 's/# i18n.defaultLocale/i18n.defaultLocale/' /mnt/etc/nixos/configuration.nix
+sed -i 's/# time.timeZone/time.timeZone/' /mnt/etc/nixos/configuration.nix
+sed -i 's/"Europe/Amsterdam"/"America/Denver"/' /mnt/etc/nixos/configuration.nix
+sed -i 's/# i18n.defaultLocale/i18n.defaultLocale/' /mnt/etc/nixos/configuration.nix
 
 # Enable Audio
-sudo sed -i 's/# sound.enable/sound.enable/' /mnt/etc/nixos/configuration.nix
-sudo sed -i 's/# hardware.pulseaudio.enable/hardware.pulseaudio.enable/' /mnt/etc/nixos/configuration.nix
+sed -i 's/# sound.enable/sound.enable/' /mnt/etc/nixos/configuration.nix
+sed -i 's/# hardware.pulseaudio.enable/hardware.pulseaudio.enable/' /mnt/etc/nixos/configuration.nix
 
 # Add user
-sudo sed -i 's/# users.users.jane/users.users.aaron/' /mnt/etc/nixos/configuration.nix
-sudo sed -i 's/# isNormalUses/isNormalUser/' /mnt/etc/nixos/configuration.nix
-sudo sed -i 's/# extraGroups/extraGroups/' /mnt/etc/nixos/configuration.nix
-sudo sed -i 's//'
+sed -i 's/# users.users.jane/users.users.aaron/' /mnt/etc/nixos/configuration.nix
+sed -i 's/# isNormalUses/isNormalUser/' /mnt/etc/nixos/configuration.nix
+sed -i 's/# extraGroups/extraGroups/' /mnt/etc/nixos/configuration.nix
+sed -i 's//'
 
 # sed -n -f config.sed /mnt/etc/nixos/configuration.nix
 
 # Install
-sudo nixos-install
+nixos-install
 
 # Fetch script for `arch-chroot`.
 # curl https://gitlab.com/ahoneybun/arch-itect/-/raw/main/setup.sh > /mnt/setup.sh
