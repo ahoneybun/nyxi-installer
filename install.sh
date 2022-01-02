@@ -18,7 +18,7 @@ ramTotal=$(free | awk '/^Mem:/{print $2 / 1024 / 1024}'  | awk -F. {'print$1'})
 # modprobe dm-mod
 
 # Switch to root
-sudo -i
+# sudo -i
 
 # Detect and list the drives.
 lsblk -f
@@ -52,7 +52,7 @@ echo t       # Change partition type.
 echo 3       # Pick third partition.
 echo 19      # Change third partition to Linux swap.
 echo w       # write changes. 
-) | fdisk $driveName -w always -W always
+) | sudo fdisk $driveName -w always -W always
 
 # List the new partitions.
 lsblk -f
@@ -77,44 +77,44 @@ read swapName
 # Open the encrypted root partition
 # sudo cryptsetup luksOpen $rootName crypt-root
 
-mkfs.fat -F32 -n EFI $efiName # EFI partition
-mkfs.ext4 -L root $rootName # /   partition
-mkswap -L swap $swapName # swap partition
+sudo mkfs.fat -F32 -n EFI $efiName # EFI partition
+sudo mkfs.ext4 -L root $rootName # /   partition
+sudo mkswap -L swap $swapName # swap partition
 
 # 0. Mount the filesystems.
-mount $rootName /mnt
-swapon $swapName
+sudo mount $rootName /mnt
+sudo swapon $swapName
 
 # 1. Create directory to mount EFI partition.
-mkdir /mnt/boot/
+sudo mkdir /mnt/boot/
 
 # 2.Mount the EFI partition.
-mount $efiName /mnt/boot
+sudo mount $efiName /mnt/boot
 
 # Generate Nix configuration
-nixos-generate-config --root /mnt
+sudo nixos-generate-config --root /mnt
 
 # wget https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config.sed
 
 # Edit Time Zone
-sed -i 's/# time.timeZone/time.timeZone/' /mnt/etc/nixos/configuration.nix
-sed -i 's/"Europe/Amsterdam"/"America/Denver"/' /mnt/etc/nixos/configuration.nix
-sed -i 's/# i18n.defaultLocale/i18n.defaultLocale/' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# time.timeZone/time.timeZone/' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/"Europe/Amsterdam"/"America/Denver"/' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# i18n.defaultLocale/i18n.defaultLocale/' /mnt/etc/nixos/configuration.nix
 
 # Enable Audio
-sed -i 's/# sound.enable/sound.enable/' /mnt/etc/nixos/configuration.nix
-sed -i 's/# hardware.pulseaudio.enable/hardware.pulseaudio.enable/' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# sound.enable/sound.enable/' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# hardware.pulseaudio.enable/hardware.pulseaudio.enable/' /mnt/etc/nixos/configuration.nix
 
 # Add user
-sed -i 's/# users.users.jane/users.users.aaron/' /mnt/etc/nixos/configuration.nix
-sed -i 's/# isNormalUses/isNormalUser/' /mnt/etc/nixos/configuration.nix
-sed -i 's/# extraGroups/extraGroups/' /mnt/etc/nixos/configuration.nix
-sed -i 's//'
+sudo sed -i 's/# users.users.jane/users.users.aaron/' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# isNormalUses/isNormalUser/' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's/# extraGroups/extraGroups/' /mnt/etc/nixos/configuration.nix
+sudo sed -i 's//'
 
 # sed -n -f config.sed /mnt/etc/nixos/configuration.nix
 
 # Install
-nixos-install
+sudo nixos-install
 
 # Fetch script for `arch-chroot`.
 # curl https://gitlab.com/ahoneybun/arch-itect/-/raw/main/setup.sh > /mnt/setup.sh
