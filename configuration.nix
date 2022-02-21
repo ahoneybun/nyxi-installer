@@ -102,7 +102,7 @@
   time.timeZone = "America/Denver";
 
   # Users
-  users.extraUsers.aaronh = {
+  users.users.aaronh = {
     createHome = true;
     home = "/home/aaronh";
     description = "Aaron Honeycutt";
