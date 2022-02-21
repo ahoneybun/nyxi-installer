@@ -102,11 +102,11 @@
   time.timeZone = "America/Denver";
 
   # Users
-  users.users.aaronh = {
+  users.ExtraUsers.aaronh = {
     createHome = true;
     home = "/home/aaronh";
     description = "Aaron Honeycutt";
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" ];
+    ExtraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" ];
     useDefaultShell = true;
   };
 
