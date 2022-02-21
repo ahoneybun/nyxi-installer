@@ -94,8 +94,10 @@ sudo mount $efiName /mnt/boot
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
-wget https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/configuration.nix
-sudo mv configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/configuration.nix > configuration.nix; sudo mv configuration.nix /mnt/etc/nixos/
+
+# wget https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/configuration.nix
+# sudo mv configuration.nix /mnt/etc/nixos/
 
 # # Edit Time Zone
 # sudo sed -i 's/# time.timeZone/time.timeZone/' /mnt/etc/nixos/configuration.nix
