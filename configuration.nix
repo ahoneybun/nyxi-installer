@@ -108,6 +108,7 @@
     description = "Aaron Honeycutt";
     ExtraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" ];
     useDefaultShell = true;
+    isNormalUser = true;
   };
 
   nixpkgs.system = "x86_64-linux";
