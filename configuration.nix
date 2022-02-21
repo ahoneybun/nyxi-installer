@@ -106,7 +106,7 @@
     createHome = true;
     home = "/home/aaronh";
     description = "Aaron Honeycutt";
-    ExtraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" ];
     useDefaultShell = true;
     isNormalUser = true;
   };
