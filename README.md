@@ -43,7 +43,7 @@ The following will happen:
 
 ## Roadmap
 
-- [ ] 
+- [ ] Use my own configuration.nix file 
 - [ ]
 
 # Possible Ideas
