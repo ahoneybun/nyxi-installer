@@ -57,7 +57,7 @@
     };
 
     ntp.enable = true;
-    nscd.enable = false;
+    nscd.enable = true;
 
     xserver = {
       videoDrivers = [ "nvidia" ];
