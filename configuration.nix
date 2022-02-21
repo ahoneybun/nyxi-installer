@@ -185,6 +185,6 @@
     ];
 
     gc.automatic = false;
-    maxJobs = pkgs.stdenv.lib.mkForce 6;
+    maxJobs = pkgs.lib.mkForce 6;
   };
 }
