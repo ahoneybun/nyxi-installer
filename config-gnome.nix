@@ -13,7 +13,7 @@
        systemd-boot.enable = true;
     };
 
-    boot.initrd.luks.devices.crypted.device = "/dev/vda2";
+    boot.initrd.luks.devices.crypt-root.device = "/dev/vda2";
     fileSystems."/".device = "/dev/mapper/crypt-root";
 
     # Name your host machine
