@@ -91,10 +91,13 @@ chroot /mnt /run/current-system/sw/bin/bash
 # Set password for user
 passwd aaronh
 
+# Exit chroot
+exit
+
 # Removed downloaded script.
 rm install.sh
 
 # Unmount all filesystems & reboot.
-# umount -a
-# reboot
+umount -a
+reboot
 
