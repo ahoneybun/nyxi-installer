@@ -3,7 +3,6 @@
 This installer does the following at it's core:
 
 - Partition the drive of your choice
-- Encrypts the installation
 - Installs a base of NixOS
 
 Tested on the following drives:
