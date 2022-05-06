@@ -35,8 +35,11 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
-    defaultLocale = "en_US.UTF-8";
   };
+
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+  }
   
   # nVidia driver
   hardware.opengl.driSupport32Bit = true;
