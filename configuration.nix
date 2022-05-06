@@ -45,7 +45,7 @@
     openssh.enable = true;
     ntp.enable = true;
     nscd.enable = true;
-
+  }
     xserver = {
       videoDrivers = [ "nvidia" ];
       enable = true;
