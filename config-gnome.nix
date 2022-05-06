@@ -14,7 +14,7 @@
     };
 
     boot.initrd.luks.devices = {
-        crypted = {
+        crypt-root = {
         device = "/dev/disk/by-label/root>";
         preLVM = true;
     };
