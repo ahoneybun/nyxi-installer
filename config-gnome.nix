@@ -36,8 +36,8 @@
     environment.systemPackages = 
             with pkgs; 
             [
-                ddate
-                testdisk
+                thunderbird
+                firefox
                 fish
             ]; 
  
