@@ -82,17 +82,11 @@ curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config-gnome.ni
 sudo nixos-install
 
 # Enter into installed OS
-sudo mount -o bind /dev /mnt/dev
-sudo mount -o bind /proc /mnt/proc
-sudo mount -o bind /sys /mnt/sys
-sudo chroot /mnt /nix/var/nix/profiles/system/activate
-sudo chroot /mnt /run/current-system/sw/bin/bash
-
-# Set password for user
-passwd aaronh
-
-# Exit chroot
-exit
+# sudo mount -o bind /dev /mnt/dev
+# sudo mount -o bind /proc /mnt/proc
+# sudo mount -o bind /sys /mnt/sys
+# sudo chroot /mnt /nix/var/nix/profiles/system/activate
+# sudo chroot /mnt /run/current-system/sw/bin/bash
 
 # Removed downloaded script.
 rm install.sh
