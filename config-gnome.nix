@@ -27,6 +27,7 @@
         { 
             aaronh = 
             {
+                home = "/home/aaronh";
                 extraGroups = [ "wheel" "networkmanager" ];
                 isNormalUser = true;
             };
