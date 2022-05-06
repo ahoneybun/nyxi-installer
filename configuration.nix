@@ -33,8 +33,8 @@
   };
 
   # Select internationalisation properties.
-  i18n = {
-    consoleKeyMap = "dvp";
+  console = {
+    KeyMap = "dvp";
     defaultLocale = "en_US.UTF-8";
   };
 
@@ -50,7 +50,7 @@
 
     openssh.enable = true;
 
-    redshift = {
+    location = {
       enable = true;
       latitude = "35";
       longitude = "139";
@@ -72,8 +72,7 @@
       windowManager.xmonad.enable = true;
       windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
       windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc822;
-      windowManager.default = "xmonad";
-      desktopManager.default = "none";
+      displayManager.defaultSession = "none+xmonad";
 
       displayManager.lightdm = {
         enable = true;
@@ -159,7 +158,7 @@
 
   fonts = {
     fontconfig.enable = true;
-    enableFontDir = true;
+    fontDir = enable;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       corefonts
