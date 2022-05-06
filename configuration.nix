@@ -32,11 +32,12 @@
 
   };
 
- # Select internationalisation properties.
-  console = {
+  i18n = {
+    consoleFont = "Lat2-Terminus16";
+    consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
   };
-
+  
   # nVidia driver
   hardware.opengl.driSupport32Bit = true;
   hardware.bluetooth.enable = true;
