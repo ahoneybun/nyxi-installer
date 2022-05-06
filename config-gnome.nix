@@ -13,8 +13,12 @@
        systemd-boot.enable = true;
     };
 
-    boot.initrd.luks.devices.crypt-root.device = "/dev/vda2";
-    fileSystems."/".device = "/dev/mapper/crypt-root";
+    boot.initrd.luks.devices = {
+        crypted = {
+        device = "/dev/disk/by-label/root>";
+        preLVM = true;
+    };
+  };
 
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
