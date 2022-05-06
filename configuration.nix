@@ -158,7 +158,7 @@
 
   fonts = {
     fontconfig.enable = true;
-    fontDir = enable;
+    fontDir.enable = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       corefonts
