@@ -7,9 +7,6 @@
     imports =
         [
             ./hardware-configuration.nix
-            ./my-dev-tools.nix
-            ./my-desktop-env.nix
-            ./etc.nix
         ];
 
     # Name your host machine
