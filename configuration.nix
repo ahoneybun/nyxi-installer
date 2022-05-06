@@ -42,9 +42,7 @@
   }
 
   services = {
-
     openssh.enable = true;
-
     ntp.enable = true;
     nscd.enable = true;
 
