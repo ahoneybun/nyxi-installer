@@ -90,8 +90,3 @@ sudo nixos-install
 
 # Removed downloaded script.
 rm install.sh
-
-# Unmount all filesystems & reboot.
-umount -a
-reboot
-
