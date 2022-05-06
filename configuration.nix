@@ -40,14 +40,6 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
   }
-  
-  # nVidia driver
-  hardware.opengl.driSupport32Bit = true;
-  hardware.bluetooth.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-  };
 
   services = {
 
