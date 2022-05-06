@@ -32,7 +32,7 @@ The following will happen:
 - Clear partition table for `/dev/***`.
 - Creates a GPT partition table for `/dev/***`.
 - Create a +512M EFI partiton at `/dev/***1`.
-- Create a encryted root partition at `/dev/***2`.
+- Create a encrypted root partition at `/dev/***2`.
 - Create a swap partition at `/dev/***3` with the choice to set it as the same size as the RAM.
 - Install systemd-boot.
 
