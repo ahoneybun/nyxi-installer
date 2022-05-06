@@ -16,7 +16,6 @@
        systemd-boot.enable = true;
     };
   };
-};
 
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
