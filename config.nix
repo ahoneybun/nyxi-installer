@@ -25,7 +25,7 @@
     # Define user accounts
     users.extraUsers = 
         { 
-            myuser = 
+            aaronh = 
             {
                 extraGroups = [ "wheel" "networkmanager" ];
                 isNormalUser = true;
@@ -38,7 +38,7 @@
             [
                 ddate
                 testdisk
-                zsh
+                fish
             ]; 
  
     # Enable the OpenSSH daemon
