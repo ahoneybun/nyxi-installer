@@ -64,7 +64,7 @@ sudo mkfs.ext4 -L root /dev/mapper/crypt-root # /   partition
 sudo mkswap -L swap $swapName                 # swap partition
 
 # 0. Mount the filesystems.
-mount /dev/mapper/crypt-root /mnt
+sudo mount /dev/disk/by-label/nixos /mnt
 sudo swapon $swapName
 
 # 1. Create directory to mount EFI partition.
