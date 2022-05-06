@@ -64,7 +64,7 @@ sudo mkfs.ext4 -L root $rootName # /   partition
 sudo mkswap -L swap $swapName # swap partition
 
 # 0. Mount the filesystems.
-sudo mount $rootName /mnt
+mount /dev/mapper/crypt-root /mnt
 sudo swapon $swapName
 
 # 1. Create directory to mount EFI partition.
