@@ -50,12 +50,6 @@
 
     openssh.enable = true;
 
-    locate = {
-      enable = true;
-      latitude = "35";
-      longitude = "139";
-    };
-
     ntp.enable = true;
     nscd.enable = true;
 
