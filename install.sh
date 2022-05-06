@@ -96,24 +96,6 @@ sudo nixos-generate-config --root /mnt
 
 curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
-# wget https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/configuration.nix
-# sudo mv configuration.nix /mnt/etc/nixos/
-
-# # Edit Time Zone
-# sudo sed -i 's/# time.timeZone/time.timeZone/' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's/"Europe/Amsterdam"/"America/Denver"/' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's/# i18n.defaultLocale/i18n.defaultLocale/' /mnt/etc/nixos/configuration.nix
-
-# # Enable Audio
-# sudo sed -i 's/# sound.enable/sound.enable/' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's/# hardware.pulseaudio.enable/hardware.pulseaudio.enable/' /mnt/etc/nixos/configuration.nix
-
-# # Add user
-# sudo sed -i 's/# users.users.jane/users.users.aaron/' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's/# isNormalUses/isNormalUser/' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's/# extraGroups/extraGroups/' /mnt/etc/nixos/configuration.nix
-# sudo sed -i 's//'
-
 # Install
 sudo nixos-install
 
