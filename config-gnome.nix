@@ -50,4 +50,8 @@
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
 
+    # System 
+    system.autoUpgrade.enable = true;
+    system.autoUpgrade.allowReboot = true;
+
 }
