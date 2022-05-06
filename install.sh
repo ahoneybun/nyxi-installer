@@ -99,9 +99,6 @@ curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config-gnome.ni
 # Install
 sudo nixos-install
 
-# Fetch script for `arch-chroot`.
-# curl https://gitlab.com/ahoneybun/arch-itect/-/raw/main/setup.sh > /mnt/setup.sh
-
 # Removed downloaded script.
 rm install.sh
 
