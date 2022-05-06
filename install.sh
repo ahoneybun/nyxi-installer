@@ -1,24 +1,11 @@
-# This file is used to partition, mount and install arch linux on UEFI systems.
-
-# Default keyboard layout is US.
-# To change layout :
-# 1. Use `localectl list-keymaps` to display liste of keymaps.
-# 2. Use  `loadkeys [keymap]` to set keyboard layout.
-#    ex : `loadkeys de-latin1` to set a german keyboard layout.
 
 # Figure out how much RAM the system has an set a variable
 # ramTotal=$(grep MemTotal /proc/meminfo | awk '{print $2 / 1024 / 1024}')
 ramTotal=$(free | awk '/^Mem:/{print $2 / 1024 / 1024}'  | awk -F. {'print$1'})
 
-# Update system clock.
-# timedatectl set-ntp true
-
 # Load kernel modules
 # modprobe dm-crypt
 # modprobe dm-mod
-
-# Switch to root
-# sudo -i
 
 # Detect and list the drives.
 lsblk -f
