@@ -32,11 +32,6 @@
 
   };
 
-  # Select internationalisation properties.
-  console = {
-    defaultLocale = "en_US.UTF-8";
-  };
-
   # nVidia driver
   hardware.opengl.driSupport32Bit = true;
   hardware.bluetooth.enable = true;
