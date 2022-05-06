@@ -34,7 +34,6 @@
 
   # Select internationalisation properties.
   console = {
-    KeyMap = "dvp";
     defaultLocale = "en_US.UTF-8";
   };
 
