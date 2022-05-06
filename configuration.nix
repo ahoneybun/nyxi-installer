@@ -50,7 +50,7 @@
 
     openssh.enable = true;
 
-    location = {
+    locate = {
       enable = true;
       latitude = "35";
       longitude = "139";
