@@ -1,11 +1,6 @@
-
 # Figure out how much RAM the system has an set a variable
 # ramTotal=$(grep MemTotal /proc/meminfo | awk '{print $2 / 1024 / 1024}')
 ramTotal=$(free | awk '/^Mem:/{print $2 / 1024 / 1024}'  | awk -F. {'print$1'})
-
-# Load kernel modules
-# modprobe dm-crypt
-# modprobe dm-mod
 
 # Detect and list the drives.
 lsblk -f
@@ -59,17 +54,17 @@ echo "Which is the swap partition?"
 read swapName
 
 # Encrypt the root partition
-# sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
+sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
 
 # Open the encrypted root partition
-# sudo cryptsetup luksOpen $rootName crypt-root
+sudo cryptsetup luksOpen $rootName crypt-root
 
-sudo mkfs.fat -F32 -n EFI $efiName # EFI partition
-sudo mkfs.ext4 -L root $rootName # /   partition
-sudo mkswap -L swap $swapName # swap partition
+sudo mkfs.fat -F32 -n EFI $efiName            # EFI partition
+sudo mkfs.ext4 -L root /dev/mapper/crypt-root # /   partition
+sudo mkswap -L swap $swapName                 # swap partition
 
 # 0. Mount the filesystems.
-sudo mount $rootName /mnt
+sudo mount /dev/disk/by-label/root /mnt
 sudo swapon $swapName
 
 # 1. Create directory to mount EFI partition.
@@ -86,10 +81,12 @@ curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config-gnome.ni
 # Install
 sudo nixos-install
 
+# Enter into installed OS
+# sudo mount -o bind /dev /mnt/dev
+# sudo mount -o bind /proc /mnt/proc
+# sudo mount -o bind /sys /mnt/sys
+# sudo chroot /mnt /nix/var/nix/profiles/system/activate
+# sudo chroot /mnt /run/current-system/sw/bin/bash
+
 # Removed downloaded script.
 rm install.sh
-
-# Unmount all filesystems & reboot.
-# umount -a
-# reboot
-
