@@ -59,9 +59,9 @@ sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
 # Open the encrypted root partition
 sudo cryptsetup luksOpen $rootName crypt-root
 
-sudo mkfs.fat -F32 -n EFI $efiName # EFI partition
-sudo mkfs.ext4 -L root $rootName # /   partition
-sudo mkswap -L swap $swapName # swap partition
+sudo mkfs.fat -F32 -n EFI $efiName            # EFI partition
+sudo mkfs.ext4 -L root /dev/mapper/crypt-root # /   partition
+sudo mkswap -L swap $swapName                 # swap partition
 
 # 0. Mount the filesystems.
 mount /dev/mapper/crypt-root /mnt
