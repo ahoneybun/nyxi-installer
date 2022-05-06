@@ -1,6 +1,6 @@
 # Load kernel modules
-modprobe dm-crypt
-modprobe dm-mod
+sudo modprobe dm-crypt
+sudo modprobe dm-mod
 
 # Detect and list the drives.
 lsblk -f
