@@ -69,15 +69,15 @@ sudo swapon $swapName
 
 # Create Subvolumes
 sudo btrfs subvolume create /mnt/@
-sudo btrfs subvolume create /mnt/@home
+# sudo btrfs subvolume create /mnt/@home
 
 # 1. Create directory to mount partitions and subvolume
 sudo mkdir /mnt/boot/
-sudo mkdir /mnt/home/
+# sudo mkdir /mnt/home/
 
 # 2. Mount the subvolumes.
 sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ $rootName /mnt
-sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home $rootName /mnt/home
+# sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home $rootName /mnt/home
 
 # 3. Mount the EFI partition.
 sudo mount $efiName /mnt/boot
