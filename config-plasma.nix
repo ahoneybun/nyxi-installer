@@ -13,6 +13,15 @@
        systemd-boot.enable = true;
     };
 
+
+    boot.initrd.luks.devices = [
+    {
+      name = "root";
+      device = "/dev/disk/by-label/root";
+      preLVM = true;
+      allowDiscards = true;
+   }
+  ];
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
 
