@@ -13,16 +13,10 @@
        systemd-boot.enable = true;
     };
 
-       fileSystems."/" =  
-          { device = "/dev/disk/by-label/root" ;
-            fsType = "btrfs";
-            options = [ "subvol=nixos" "compress=zstd" "autodefrag" "noatime" ]; 
-          };
-
-        boot.initrd.luks.devices."crypt-root" = { 
-           device = "/dev/disk/by-label/root" ;
-           preLVM = true;
-        };
+    boot.initrd.luks.devices."crypt-root" = { 
+        device = "/dev/disk/by-label/root" ;
+        preLVM = true;
+    };
 
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
