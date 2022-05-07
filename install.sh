@@ -79,8 +79,9 @@ sudo mkdir /mnt/boot/
 sudo mkdir /mnt/home/
 
 # 2. Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ $rootName /mnt
-sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home $rootName /mnt/home
+sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ /dev/disk/by-label/root /mnt
+# sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ $rootName /mnt
+# sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home $rootName /mnt/home
 
 # 3. Mount the EFI partition.
 sudo mount $efiName /mnt/boot
