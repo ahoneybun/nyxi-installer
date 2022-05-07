@@ -21,8 +21,6 @@ echo +512M   # Set +512M as last sector.
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
-echo "-$ramTotal"G # Set Max RAM as last sector.
-# echo -4096M  # Set -4096 as last sector.
 echo n       # Create new partition (for swap).
 echo         # Set default partition number.
 echo         # Set default first sector.
@@ -30,9 +28,6 @@ echo         # Set default last sector (rest of the disk).
 echo t       # Change partition type.
 echo 1       # Pick first partition.
 echo 1       # Change first partition to EFI system.
-echo t       # Change partition type.
-echo 3       # Pick third partition.
-echo 19      # Change third partition to Linux swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
@@ -49,9 +44,8 @@ echo ""
 echo "Which is the root partition?"
 read rootName
 
-echo ""
-echo "Which is the swap partition?"
-read swapName
+# Create EFI partition
+sudo mkfs.fat -F32 -n EFI $efiName         
 
 # Encrypt the root partition
 sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
@@ -59,13 +53,18 @@ sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
 # Open the encrypted root partition
 sudo cryptsetup luksOpen $rootName crypt-root
 
-sudo mkfs.fat -F32 -n EFI $efiName            # EFI partition
-sudo mkfs.btrfs -L root /dev/mapper/crypt-root     # /root partition
-sudo mkswap -L swap $swapName                 # swap partition
+sudo pvcreate /dev/mapper/crypt-root
+sudo vgcreate lvm /dev/mapper/crypt-root
+
+sudo lvcreate --size $ramTotal --name swap lvm
+sudo lvcreate --extents 100%FREE --name root lvm
+
+sudo mkswap /dev/lvm/swap          # swap partition
+sudo mkfs.btrfs /dev/lvm/root  # /root partition
 
 # 0. Mount the filesystems.
-sudo mount /dev/disk/by-label/root /mnt
-sudo swapon $swapName
+sudo swapon /dev/lvm/swap
+sudo mount /dev/lvm/root /mnt
 
 # Create Subvolumes
 sudo btrfs subvolume create /mnt/@
@@ -74,16 +73,14 @@ sudo btrfs subvolume create /mnt/@home
 # Unmount root
 sudo umount /mnt
 
-# 1. Create directory to mount partitions and subvolume
-sudo mkdir /mnt/boot/
+# Mount the subvolumes.
+sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ /dev/lvm/root /mnt
+
 sudo mkdir /mnt/home/
+sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home /dev/lvm/root /mnt/home
 
-# 2. Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ /dev/disk/by-label/root /mnt
-# sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ $rootName /mnt
-# sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home $rootName /mnt/home
-
-# 3. Mount the EFI partition.
+# Mount the EFI partition.
+sudo mkdir /mnt/boot/
 sudo mount $efiName /mnt/boot
 
 # Generate Nix configuration
