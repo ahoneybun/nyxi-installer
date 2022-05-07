@@ -12,12 +12,7 @@
     boot.loader = {
        systemd-boot.enable = true;
     };
-
-    boot.initrd.luks.devices."crypt-root" = { 
-        device = "/dev/disk/by-label/root" ;
-        preLVM = true;
-    };
-
+    
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
 
