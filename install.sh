@@ -60,7 +60,7 @@ sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
 sudo cryptsetup luksOpen $rootName crypt-root
 
 sudo mkfs.fat -F32 -n EFI $efiName            # EFI partition
-mkfs.btrfs -L root /dev/mapper/crypt-root     # /root partition
+sudo mkfs.btrfs -L root /dev/mapper/crypt-root     # /root partition
 sudo mkswap -L swap $swapName                 # swap partition
 
 # 0. Mount the filesystems.
@@ -68,16 +68,16 @@ sudo mount /dev/disk/by-label/root /mnt
 sudo swapon $swapName
 
 # Create Subvolumes
-btrfs subvolume create /mnt/@
-btrfs subvolume create /mnt/@home
+sudo btrfs subvolume create /mnt/@
+sudo btrfs subvolume create /mnt/@home
 
 # 1. Create directory to mount partitions and subvolume
-mkdir /mnt/boot/
-mkdir /mnt/home/
+sudo mkdir /mnt/boot/
+sudo mkdir /mnt/home/
 
 # 2. Mount the subvolumes.
-mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ $rootName /mnt
-mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home $rootName /mnt/home
+sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ $rootName /mnt
+sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home $rootName /mnt/home
 
 # 3. Mount the EFI partition.
 sudo mount $efiName /mnt/boot
