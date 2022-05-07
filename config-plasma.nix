@@ -13,7 +13,6 @@
        systemd-boot.enable = true;
     };
 
-    {
        fileSystems."/" =  
           { device = "/dev/disk/by-label/root" ;
             fsType = "btrfs";
@@ -24,7 +23,6 @@
            device = "/dev/disk/by-label/root" ;
            preLVM = true;
         };
-    }
 
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
