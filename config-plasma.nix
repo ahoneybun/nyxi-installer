@@ -12,18 +12,6 @@
     boot.loader = {
        systemd-boot.enable = true;
     };
-    
-    fileSystems."/" =
-       { device = "/dev/lvm/root";
-         fsType = "btrfs";
-         options = [ "subvol=root" "compress=zstd" "noatime" ];
-       };
-
-    fileSystems."/home" =
-       { device = "/dev/lvm/root";
-         fsType = "btrfs";
-         options = [ "subvol=home" "compress=zstd" "noatime" ];
-       };
 
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
