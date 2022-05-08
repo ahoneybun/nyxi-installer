@@ -14,8 +14,8 @@
     };
 
     boot.initrd.luks.devices = {
-      name = "dm-name-crypt-root";
-      device = "/dev/disk/by-id/dm-name-crypt-root";
+      name = "root";
+      device = "/dev/disk/by-label/root";
       preLVM = true;
    };
 
