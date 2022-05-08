@@ -93,20 +93,18 @@ curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/nathaniel-btrfs/conf
 # Install
 sudo nixos-install
 
+# Start Setup section
+curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/nathaniel-btrfs/setup.sh > /mnt/setup.sh
+
 # Enter into installed OS
 sudo mount -o bind /dev /mnt/dev
 sudo mount -o bind /proc /mnt/proc
 sudo mount -o bind /sys /mnt/sys
 sudo chroot /mnt /nix/var/nix/profiles/system/activate
-sudo chroot /mnt /run/current-system/sw/bin/bash
+sudo chroot /mnt /run/current-system/sw/bin/bash setup.sh
 
-# Set user password
-echo "----------"
-echo ""
-echo "Which is the username?"
-read userName
-
-sudo passwd $userName
-
-# Removed downloaded script.
+# Removed install script.
 rm install.sh
+
+# Remove setup script
+rm setup.sh
