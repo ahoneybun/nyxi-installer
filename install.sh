@@ -56,7 +56,7 @@ sudo cryptsetup luksOpen $rootName crypt-root
 sudo pvcreate /dev/mapper/crypt-root
 sudo vgcreate lvm /dev/mapper/crypt-root
 
-sudo lvcreate --size "$ramTotal"GB --name swap lvm
+sudo lvcreate --size "$ramTotal"G --name swap lvm
 sudo lvcreate --extents 100%FREE --name root lvm
 
 sudo cryptsetup config $rootName --label luks
