@@ -61,6 +61,7 @@
                 libsForQt5.plasma-nm
                 libsForQt5.plasma-pa
                 libsForQt5.discover
+                libsForQt5.sddm
                 thunderbird
                 tilix
             ]; 
@@ -70,6 +71,7 @@
     
     # Plasma
     services.xserver.enable = true;
+    services.xserver.displayManager.sddm.enable = true;
     services.xserver.desktopManager.plasma5.enable = true;
 
     # Enable Pipewire
