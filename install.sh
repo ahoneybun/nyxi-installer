@@ -31,6 +31,9 @@ echo 1       # Change first partition to EFI system.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
+# Move to root
+sudo -i 
+
 # List the new partitions.
 lsblk -f
 
@@ -45,64 +48,63 @@ echo "Which is the root partition?"
 read rootName
 
 # Create EFI partition
-sudo mkfs.fat -F32 -n EFI $efiName         
+mkfs.fat -F32 -n EFI $efiName         
 
 # Encrypt the root partition
-sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
+cryptsetup luksFormat -v -s 512 -h sha512 $rootName
 
 # Open the encrypted root partition
-sudo cryptsetup luksOpen $rootName crypt-root
+cryptsetup luksOpen $rootName crypt-root
 
-sudo pvcreate /dev/mapper/crypt-root
-sudo vgcreate lvm /dev/mapper/crypt-root
+pvcreate /dev/mapper/crypt-root
+vgcreate lvm /dev/mapper/crypt-root
 
-sudo lvcreate --size $ramTotal --name swap lvm
-sudo lvcreate --extents 100%FREE --name root lvm
+lvcreate --size $ramTotal --name swap lvm
+lvcreate --extents 100%FREE --name root lvm
 
-sudo cryptsetup config $rootName --label luks
+cryptsetup config $rootName --label luks
 
-sudo mkswap /dev/lvm/swap              # swap partition
-sudo mkfs.btrfs -L root /dev/lvm/root  # /root partition
+mkswap /dev/lvm/swap              # swap partition
+mkfs.btrfs -L root /dev/lvm/root  # /root partition
 
 # 0. Mount the filesystems.
-sudo swapon /dev/lvm/swap
-sudo mount /dev/lvm/root /mnt
+swapon /dev/lvm/swap
+mount /dev/lvm/root /mnt
 
 # Create Subvolumes
-sudo btrfs subvolume create /mnt/@
-sudo btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
 
 # Unmount root
-sudo umount /mnt
+umount /mnt
 
 # Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ /dev/lvm/root /mnt
+mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ /dev/lvm/root /mnt
 
-sudo mkdir /mnt/home/
-sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home /dev/lvm/root /mnt/home
+mkdir /mnt/home/
+mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home /dev/lvm/root /mnt/home
 
 # Mount the EFI partition.
-sudo mkdir /mnt/boot/
-sudo mount $efiName /mnt/boot
+mkdir /mnt/boot/
+mount $efiName /mnt/boot
 
 # Generate Nix configuration
-sudo nixos-generate-config --root /mnt
+nixos-generate-config --root /mnt
 
 curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/nathaniel-btrfs/config-plasma.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
 # Install
-sudo nixos-install
+nixos-install
 
 # Start Setup section
-sudo -i
 curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/nathaniel-btrfs/setup.sh > /mntsetup.sh
 
 # Enter into installed OS
-sudo mount -o bind /dev /mnt/dev
-sudo mount -o bind /proc /mnt/proc
-sudo mount -o bind /sys /mnt/sys
-sudo chroot /mnt /nix/var/nix/profiles/system/activate
-sudo chroot /mnt /run/current-system/sw/bin/bash setup.sh
+mount -o bind /dev /mnt/dev
+mount -o bind /proc /mnt/proc
+mount -o bind /sys /mnt/sys
+chroot /mnt /nix/var/nix/profiles/system/activate
+chroot /mnt /run/current-system/sw/bin/bash setup.sh
 
 # Removed install script.
 rm install.sh
