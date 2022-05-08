@@ -31,6 +31,15 @@
     # Enter keyboard layout
     services.xserver.layout = "us";
 
+    # Enable flatpak
+    services.flatpak.enable = true;
+
+    # Enable PackageKit for Discover
+    services.packagekit.enable = true;
+
+    # Enable fwupd
+    services.fwupd.enable = true;
+
     # Define user accounts
     users.extraUsers = 
         { 
@@ -46,10 +55,12 @@
     environment.systemPackages = 
             with pkgs; 
             [
-                libsForQt5.plasma-nm
-                thunderbird
                 firefox
                 fish
+                flatpak
+                libsForQt5.plasma-nm
+                libsForQt5.discover
+                thunderbird
                 tilix
             ]; 
  
