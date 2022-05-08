@@ -59,8 +59,8 @@ sudo vgcreate lvm /dev/mapper/crypt-root
 sudo lvcreate --size $ramTotal --name swap lvm
 sudo lvcreate --extents 100%FREE --name root lvm
 
-sudo mkswap /dev/lvm/swap          # swap partition
-sudo mkfs.btrfs /dev/lvm/root  # /root partition
+sudo mkswap /dev/lvm/swap              # swap partition
+sudo mkfs.btrfs -L root /dev/lvm/root  # /root partition
 
 # 0. Mount the filesystems.
 sudo swapon /dev/lvm/swap
