@@ -59,6 +59,8 @@ sudo vgcreate lvm /dev/mapper/crypt-root
 sudo lvcreate --size $ramTotal --name swap lvm
 sudo lvcreate --extents 100%FREE --name root lvm
 
+sudo cryptsetup config $rootName --label root
+
 sudo mkswap /dev/lvm/swap              # swap partition
 sudo mkfs.btrfs -L root /dev/lvm/root  # /root partition
 
