@@ -59,6 +59,7 @@
                 fish
                 flatpak
                 libsForQt5.plasma-nm
+                libsForQt5.plasma-pa
                 libsForQt5.discover
                 thunderbird
                 tilix
@@ -70,6 +71,15 @@
     # Plasma
     services.xserver.enable = true;
     services.xserver.desktopManager.plasma5.enable = true;
+
+    # Enable Pipewire
+    security.rtkit.enable = true;
+    services.pipewire = {
+       enable = true;
+       alsa.enable = true;
+       alsa.support32Bit = true;
+       pulse.enable = true;
+    };
 
     # System 
     system.autoUpgrade.enable = true;
