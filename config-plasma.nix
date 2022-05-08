@@ -58,6 +58,7 @@
                 firefox
                 fish
                 flatpak
+                git
                 libsForQt5.plasma-nm
                 libsForQt5.plasma-pa
                 libsForQt5.discover
