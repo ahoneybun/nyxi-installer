@@ -14,10 +14,11 @@
     };
 
     boot.initrd.luks.devices = {
-      name = "root";
-      device = "/dev/disk/by-label/root";
-      preLVM = true;
-   };
+       crypt-root = {
+          device = "/dev/disk/by-label/luks";
+          preLVM = true;
+       };
+    };
 
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
