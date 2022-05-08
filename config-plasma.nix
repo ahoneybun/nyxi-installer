@@ -46,6 +46,7 @@
     environment.systemPackages = 
             with pkgs; 
             [
+                libsForQt5.plasma-nm
                 thunderbird
                 firefox
                 fish
