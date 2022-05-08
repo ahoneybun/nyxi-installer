@@ -17,7 +17,6 @@
       name = "root";
       device = "/dev/disk/by-label/root";
       preLVM = true;
-      allowDiscards = true;
    };
 
     # Name your host machine
