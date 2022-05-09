@@ -32,9 +32,17 @@
     # Enter keyboard layout
     services.xserver.layout = "us";
 
-    # Enable flatpak
-    services.flatpak.enable = true;
-    xdg.portal.enable = true;
+    # Enable Flatpak
+    xdg = {
+       portal = {
+          enable = true;
+          extraPortals = with pkgs; [
+             xdg-desktop-portal-wlr
+             xdg-desktop-portal-kde
+          ];
+          qtUsePortal = true;
+        };
+    };
 
     # Enable PackageKit for Discover
     services.packagekit.enable = true;
