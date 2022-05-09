@@ -95,7 +95,7 @@ sudo nixos-install
 
 # Start Setup section
 # sudo -i
-# curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/nathaniel-btrfs/setup.sh > /mnt/setup.sh
+# curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/setup.sh > /mnt/setup.sh
 
 # Enter into installed OS
 sudo mount -o bind /dev /mnt/dev
