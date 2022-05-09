@@ -13,14 +13,33 @@
        systemd-boot.enable = true;
     };
 
+    boot.initrd.luks.devices = {
+       crypt-root = {
+          device = "/dev/disk/by-label/luks";
+          preLVM = true;
+       };
+    };
+
+    # Enable 32 Bit libraries for applications like Steam
+    hardware.opengl.driSupport32Bit = true;
+
     # Name your host machine
-    networking.hostName = "NixOS-VM"; 
+    networking.hostName = "NixOS"; 
 
     # Set your time zone.
     time.timeZone = "America/Denver";
 
     # Enter keyboard layout
     services.xserver.layout = "us";
+
+    # Enable flatpak
+    services.flatpak.enable = true;
+
+    # Enable PackageKit for Discover
+    services.packagekit.enable = true;
+
+    # Enable fwupd
+    services.fwupd.enable = true;
 
     # Define user accounts
     users.extraUsers = 
@@ -37,15 +56,26 @@
     environment.systemPackages = 
             with pkgs; 
             [
-                thunderbird
                 firefox
                 fish
+                flatpak
+                git
+                thunderbird
                 tilix
             ]; 
  
     # Enable the OpenSSH daemon
     services.openssh.enable = true;
     
+    # Enable Pipewire
+    security.rtkit.enable = true;
+    services.pipewire = {
+       enable = true;
+       alsa.enable = true;
+       alsa.support32Bit = true;
+       pulse.enable = true;
+    };
+
     # GNOME
     services.xserver.enable = true;
     services.xserver.displayManager.gdm.enable = true;
