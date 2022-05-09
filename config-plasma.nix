@@ -37,7 +37,7 @@
     # Enable flatpak
     services.flatpak.enable = true;
 
-    # Enable PackageKit for Discover
+    # Enable PackageKit
     services.packagekit.enable = true;
 
     # Enable fwupd
@@ -64,7 +64,6 @@
                 git
                 libsForQt5.plasma-nm
                 libsForQt5.plasma-pa
-                libsForQt5.discover
                 libsForQt5.sddm
                 thunderbird
                 tilix
