@@ -87,6 +87,9 @@
        pulse.enable = true;
     };
 
+    # Enable CUPS
+    services.printing.enable = true;
+
     # System 
     system.autoUpgrade.enable = true;
     system.autoUpgrade.allowReboot = true;
