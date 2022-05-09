@@ -88,14 +88,14 @@ sudo mount $efiName /mnt/boot
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
-curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/nathaniel-btrfs/config-plasma.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config-plasma.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
 # Install
 sudo nixos-install
 
 # Start Setup section
-sudo -i
-curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/nathaniel-btrfs/setup.sh > /mnt/setup.sh
+# sudo -i
+# curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/nathaniel-btrfs/setup.sh > /mnt/setup.sh
 
 # Enter into installed OS
 sudo mount -o bind /dev /mnt/dev
