@@ -2,9 +2,6 @@
 # ramTotal=$(grep MemTotal /proc/meminfo | awk '{print $2 / 1024 / 1024}')
 ramTotal=$(free | awk '/^Mem:/{print $2 / 1024 / 1024}'  | awk -F. {'print$1'})
 
-# Become Root
-sudo -i
-
 # Detect and list the drives.
 lsblk -f
 
