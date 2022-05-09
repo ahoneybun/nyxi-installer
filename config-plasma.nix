@@ -24,9 +24,7 @@
     hardware.opengl.driSupport32Bit = true;
 
     # Name your host machine
-    networking.hostName = "NixOS-VM"; 
-
-    networking.networkmanager.enable = true;
+    networking.hostName = "NixOS"; 
 
     # Set your time zone.
     time.timeZone = "America/Denver";
@@ -62,10 +60,6 @@
                 fish
                 flatpak
                 git
-                libsForQt5.plasma-nm
-                libsForQt5.plasma-pa
-                libsForQt5.discover
-                libsForQt5.sddm
                 thunderbird
                 tilix
             ]; 
@@ -73,11 +67,6 @@
     # Enable the OpenSSH daemon
     services.openssh.enable = true;
     
-    # Plasma
-    services.xserver.enable = true;
-    services.xserver.displayManager.sddm.enable = true;
-    services.xserver.desktopManager.plasma5.enable = true;
-
     # Enable Pipewire
     security.rtkit.enable = true;
     services.pipewire = {
