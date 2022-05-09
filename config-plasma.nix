@@ -34,6 +34,7 @@
 
     # Enable flatpak
     services.flatpak.enable = true;
+    xdg.portal.enable = true;
 
     # Enable PackageKit for Discover
     services.packagekit.enable = true;
