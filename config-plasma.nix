@@ -40,7 +40,6 @@
              xdg-desktop-portal-wlr
              xdg-desktop-portal-kde
           ];
-          qtUsePortal = true;
         };
     };
 
