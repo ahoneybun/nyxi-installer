@@ -20,6 +20,9 @@
        };
     };
 
+    # Enable 32 Bit libraries for applications like Steam
+    hardware.opengl.driSupport32Bit = true;
+
     # Name your host machine
     networking.hostName = "NixOS-VM"; 
 
