@@ -88,7 +88,7 @@ sudo mount $efiName /mnt/boot
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
-curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config-plasma.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config-gnome.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
 # Install
 sudo nixos-install
