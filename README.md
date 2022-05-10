@@ -35,7 +35,7 @@ The following will happen:
 - Creates a GPT partition table for `/dev/***`.
 - Create a +512M EFI partiton at `/dev/***1`.
 - Create a encrypted LVM at `/dev/***2`.
-- Create a swap partition in the LVM with the choice to set it as the same size as the RAM.
+- Create a swap partition in the LVM and sets it as the same size as the RAM for hibernation.
 - Create a root partition in the LVM.
 - Install systemd-boot.
 
