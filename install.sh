@@ -98,11 +98,11 @@ sudo nixos-install
 # curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/setup.sh > /mnt/setup.sh
 
 # Enter into installed OS
-sudo mount -o bind /dev /mnt/dev
-sudo mount -o bind /proc /mnt/proc
-sudo mount -o bind /sys /mnt/sys
-sudo chroot /mnt /nix/var/nix/profiles/system/activate
-sudo chroot /mnt /run/current-system/sw/bin/sh setup.sh
+# sudo mount -o bind /dev /mnt/dev
+# sudo mount -o bind /proc /mnt/proc
+# sudo mount -o bind /sys /mnt/sys
+# sudo chroot /mnt /nix/var/nix/profiles/system/activate
+# sudo chroot /mnt /run/current-system/sw/bin/sh setup.sh
 
 # Removed install script.
 rm install.sh
