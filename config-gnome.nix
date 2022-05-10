@@ -32,9 +32,6 @@
     # Enter keyboard layout
     services.xserver.layout = "us";
 
-    # Enable flatpak
-    services.flatpak.enable = true;
-
     # Enable PackageKit for Discover
     services.packagekit.enable = true;
 
@@ -58,7 +55,6 @@
             [
                 firefox
                 fish
-                flatpak
                 git
                 thunderbird
                 tilix
@@ -73,7 +69,7 @@
        enable = true;
        alsa.enable = true;
        alsa.support32Bit = true;
-       pulse.enable = true;
+       pulse.enable = false;
     };
 
     # GNOME
