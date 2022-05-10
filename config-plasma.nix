@@ -68,6 +68,9 @@
                 fish
                 flatpak
                 git
+                libsForQt5.plasma-nm
+                libsForQt5.plasma-pa
+                libsForQt5.sddm
                 thunderbird
                 tilix
             ]; 
@@ -75,6 +78,12 @@
     # Enable the OpenSSH daemon
     services.openssh.enable = true;
     
+    # Plasma
+    services.xserver.enable = true;
+    services.xserver.displayManager.sddm.enable = true;
+    services.xserver.desktopManager.plasma5.enable = true;
+
+
     # Enable Pipewire
     security.rtkit.enable = true;
     services.pipewire = {
