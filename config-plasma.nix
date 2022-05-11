@@ -44,6 +44,8 @@
         };
     };
 
+    services.flatpak.enable = true;
+
     # Enable PackageKit for Discover
     services.packagekit.enable = true;
 
