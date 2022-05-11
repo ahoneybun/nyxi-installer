@@ -25,12 +25,26 @@
 
     # Name your host machine
     networking.hostName = "NixOS"; 
+    networking.networkmanager.enable = true;
 
     # Set your time zone.
     time.timeZone = "America/Denver";
 
     # Enter keyboard layout
     services.xserver.layout = "us";
+
+    # Enable Flatpak
+    xdg = {
+       portal = {
+          enable = true;
+          extraPortals = with pkgs; [
+             xdg-desktop-portal-wlr
+             xdg-desktop-portal-kde
+          ];
+        };
+    };
+
+    services.flatpak.enable = true;
 
     # Enable PackageKit for Discover
     services.packagekit.enable = true;
@@ -55,7 +69,12 @@
             [
                 firefox
                 fish
+                flatpak
                 git
+                libsForQt5.discover
+                libsForQt5.plasma-nm
+                libsForQt5.plasma-pa
+                libsForQt5.sddm
                 thunderbird
                 tilix
             ]; 
@@ -63,15 +82,6 @@
     # Enable the OpenSSH daemon
     services.openssh.enable = true;
     
-    # Enable Pipewire
-    security.rtkit.enable = true;
-    services.pipewire = {
-       enable = true;
-       alsa.enable = true;
-       alsa.support32Bit = true;
-       pulse.enable = false;
-    };
-
     # GNOME
     services.xserver.enable = true;
     services.xserver.displayManager.gdm.enable = true;
@@ -79,6 +89,21 @@
 
     # Disable GNOME applications
     environment.gnome.excludePackages = [ pkgs.gnome.cheese pkgs.gnome-photos pkgs.gnome.gnome-music pkgs.gnome.gnome-terminal pkgs.gnome.gedit pkgs.epiphany pkgs.evince pkgs.gnome.gnome-characters pkgs.gnome.totem pkgs.gnome.tali pkgs.gnome.iagno pkgs.gnome.hitori pkgs.gnome.atomix pkgs.gnome-tour pkgs.gnome.geary ];
+
+    # Enable Pipewire
+    security.rtkit.enable = true;
+    services.pipewire = {
+       enable = true;
+       alsa.enable = true;
+       alsa.support32Bit = true;
+       pulse.enable = true;
+    };
+
+    # Enable Bluetooth
+    hardware.bluetooth.enable = true;
+
+    # Enable CUPS
+    services.printing.enable = true;
 
     # System 
     system.autoUpgrade.enable = true;
