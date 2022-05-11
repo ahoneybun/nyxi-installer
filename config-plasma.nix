@@ -25,6 +25,7 @@
 
     # Name your host machine
     networking.hostName = "NixOS"; 
+    networking.networkmanager.enable = true;
 
     # Set your time zone.
     time.timeZone = "America/Denver";
@@ -84,7 +85,6 @@
     services.xserver.displayManager.sddm.enable = true;
     services.xserver.desktopManager.plasma5.enable = true;
 
-
     # Enable Pipewire
     security.rtkit.enable = true;
     services.pipewire = {
@@ -93,6 +93,9 @@
        alsa.support32Bit = true;
        pulse.enable = true;
     };
+
+    # Enable Bluetooth
+    hardware.bluetooth.enable = true;
 
     # Enable CUPS
     services.printing.enable = true;
