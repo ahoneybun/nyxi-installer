@@ -46,9 +46,6 @@
 
     services.flatpak.enable = true;
 
-    # Enable PackageKit for Discover
-    services.packagekit.enable = true;
-
     # Enable fwupd
     services.fwupd.enable = true;
 
@@ -71,10 +68,6 @@
                 fish
                 flatpak
                 git
-                libsForQt5.discover
-                libsForQt5.plasma-nm
-                libsForQt5.plasma-pa
-                libsForQt5.sddm
                 thunderbird
                 tilix
             ]; 
