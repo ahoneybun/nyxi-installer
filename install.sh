@@ -1,6 +1,5 @@
 # Figure out how much RAM the system has an set a variable
-# ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'})
-ramTotal=$(free | awk '/^Mem:/{print $2 / 1024 / 1024}'  | awk -F. {'print$1'})
+ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'})
 
 # Detect and list the drives.
 lsblk -f
