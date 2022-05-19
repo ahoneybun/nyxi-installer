@@ -93,15 +93,15 @@ curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config-plasma.n
 sudo nixos-install
 
 # Start Setup section
-# sudo -i
-# curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/setup.sh > /mnt/setup.sh
+sudo -i
+curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/setup.sh > /mnt/setup.sh
 
 # Enter into installed OS
-# sudo mount -o bind /dev /mnt/dev
-# sudo mount -o bind /proc /mnt/proc
-# sudo mount -o bind /sys /mnt/sys
-# sudo chroot /mnt /nix/var/nix/profiles/system/activate
-# sudo chroot /mnt /run/current-system/sw/bin/sh setup.sh
+mount -o bind /dev /mnt/dev
+mount -o bind /proc /mnt/proc
+mount -o bind /sys /mnt/sys
+chroot /mnt /nix/var/nix/profiles/system/activate
+chroot /mnt /run/current-system/sw/bin/sh setup.sh
 
 # Removed install script.
 rm install.sh
