@@ -55,12 +55,12 @@ sudo cryptsetup luksOpen $rootName crypt-root
 sudo pvcreate /dev/mapper/crypt-root
 sudo vgcreate lvm /dev/mapper/crypt-root
 
-sudo lvcreate --size "$ramTotal"G --name swap lvm
-sudo lvcreate --extents 100%FREE --name root lvm
+sudo lvcreate -L "$ramTotal"G -n swap lvm
+sudo lvcreate -l '100%FREE' -n root lvm
 
 sudo cryptsetup config $rootName --label luks
 
-sudo mkswap /dev/lvm/swap                   # swap partition
+sudo mkswap /dev/lvm/swap              # swap partition
 sudo mkfs.btrfs -L root /dev/lvm/root  # /root partition
 
 # 0. Mount the filesystems.
@@ -93,15 +93,15 @@ curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/config-plasma.n
 sudo nixos-install
 
 # Start Setup section
-sudo -i
-curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/setup.sh > /mnt/setup.sh
+# sudo -i
+# curl https://gitlab.com/ahoneybun/nixos-cli-installer/-/raw/main/setup.sh > /mnt/setup.sh
 
-# Enter into installed OS
-mount -o bind /dev /mnt/dev
-mount -o bind /proc /mnt/proc
-mount -o bind /sys /mnt/sys
-chroot /mnt /nix/var/nix/profiles/system/activate
-chroot /mnt /run/current-system/sw/bin/sh setup.sh
+# # Enter into installed OS
+# mount -o bind /dev /mnt/dev
+# mount -o bind /proc /mnt/proc
+# mount -o bind /sys /mnt/sys
+# chroot /mnt /nix/var/nix/profiles/system/activate
+# chroot /mnt /run/current-system/sw/bin/sh setup.sh
 
 # Removed install script.
 rm install.sh
