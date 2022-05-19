@@ -9,7 +9,7 @@ This installer does the following at it's core:
 
 Tested on the following drives:
 - SATA 
-- M.2 SSD 
+- NVMe
 
 ## Get Started
 
