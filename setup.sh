@@ -8,6 +8,5 @@ sudo passwd $userName
 
 # Create Directories
 mkdir /home/$userName/Projects
-chmod $userName:$userName /home/aaronh/Projects
 
 exit
