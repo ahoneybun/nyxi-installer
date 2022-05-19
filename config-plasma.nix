@@ -20,6 +20,9 @@
        };
     };
 
+    # Allow Unfree
+    nixpkgs.config.allowUnfree = true;
+
     # Enable 32 Bit libraries for applications like Steam
     hardware.opengl.driSupport32Bit = true;
 
@@ -46,7 +49,7 @@
 
     services.flatpak.enable = true;
 
-    # Enable PackageKit for Discover
+    # Enable PackageKit
     services.packagekit.enable = true;
 
     # Enable fwupd
@@ -71,7 +74,7 @@
                 fish
                 flatpak
                 git
-                libsForQt5.discover
+                nixos.steam
                 libsForQt5.plasma-nm
                 libsForQt5.plasma-pa
                 libsForQt5.sddm
