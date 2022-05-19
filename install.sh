@@ -50,18 +50,18 @@ sudo mkfs.fat -F32 -n EFI $efiName
 sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
 
 # Open the encrypted root partition
-sudo cryptsetup luksOpen $rootName crypt-root
+sudo cryptsetup luksOpen $rootName cryptdata
 
-sudo pvcreate /dev/mapper/crypt-root
-sudo vgcreate lvm /dev/mapper/crypt-root
+sudo pvcreate /dev/mapper/cryptdata
+sudo vgcreate lvm /dev/mapper/cryptdata
 
 sudo lvcreate --size "$ramTotal"G --name swap lvm
 sudo lvcreate --extents 100%FREE --name root lvm
 
 sudo cryptsetup config $rootName --label luks
 
-sudo mkswap /dev/lvm/swap              # swap partition
-sudo mkfs.btrfs -L root /dev/lvm/root  # /root partition
+sudo mkswap /dev/lvm/swap                   # swap partition
+sudo mkfs.btrfs -L data-root /dev/lvm/root  # /root partition
 
 # 0. Mount the filesystems.
 sudo swapon /dev/lvm/swap
