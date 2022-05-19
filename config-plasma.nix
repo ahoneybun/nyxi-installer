@@ -76,7 +76,6 @@
                 libsForQt5.plasma-pa
                 libsForQt5.sddm
                 thunderbird
-                tilix
             ]; 
  
     # Enable the OpenSSH daemon
