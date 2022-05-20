@@ -49,9 +49,6 @@
 
     services.flatpak.enable = true;
 
-    # Enable PackageKit
-    services.packagekit.enable = true;
-
     # Enable fwupd
     services.fwupd.enable = true;
 
