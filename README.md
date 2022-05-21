@@ -13,6 +13,12 @@ Tested on the following drives:
 - SATA 
 - NVMe
 
+This sets the hashedPassword to my own so you will need to update it to match your own as well as the username. I created the hash with this command:
+
+```
+sudo mkpasswd -m sha-512
+```
+
 ## Get Started
 
 Prerequisites:
