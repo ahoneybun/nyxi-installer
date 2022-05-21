@@ -72,6 +72,7 @@
                 flatpak
                 git
                 libsForQt5.bismuth
+                libsForQt5.kde-gtk-config
                 libsForQt5.plasma-nm
                 libsForQt5.plasma-pa
                 libsForQt5.sddm
