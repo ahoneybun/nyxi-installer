@@ -1,5 +1,7 @@
 # The NixOS Installer
 
+This installed is named after my doggo Onyxia. 
+
 This installer does the following at it's core:
 
 - Partition the drive of your choice
