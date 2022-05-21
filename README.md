@@ -1,8 +1,8 @@
 # The NixOS Installer
 
-This installed is named after my doggo Onyxia. 
+This installer is named after my doggo Onyxia.
 
-This installer does the following at it's core:
+At the core of this installer it does the following:
 
 - Partition the drive of your choice
 - Installs a base of NixOS
