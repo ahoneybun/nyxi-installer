@@ -94,11 +94,12 @@ sudo nixos-generate-config --root /mnt
 
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/config.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
-sed -i 's/aaronh/$userName/g' /mnt/etc/configuration.nix
-sed -i 's/home/aaronh/home/$userName/g' /mnt/etc/configuration.nix
-
 # Install
 sudo nixos-install
+
+# Replacing username
+sed -i 's/aaronh/$userName/g' /mnt/etc/configuration.nix
+sed -i 's/home/aaronh/home/$userName/g' /mnt/etc/configuration.nix
 
 # Start Setup section
 # sudo -i
@@ -113,6 +114,3 @@ sudo nixos-install
 
 # Removed install script.
 rm install.sh
-
-# Remove setup script
-# rm setup.sh
