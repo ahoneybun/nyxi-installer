@@ -46,6 +46,7 @@ read rootName
 echo ""
 echo "Which is your username?"
 read userName
+echo ""
 
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName         
