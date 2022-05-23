@@ -53,16 +53,12 @@
     services.fwupd.enable = true;
 
     # Define user accounts
-    users.extraUsers = 
-        { 
-            aaronh = 
-            {
-                home = "/home/aaronh";
-                extraGroups = [ "wheel" "networkmanager" ];
-                isNormalUser = true;
-                hashedPassword = "$6$aAcbLtqiqzySifls$jdKMOQjoWITHD/dWNNZVUH/qNc6aoJ7v4zYofi0U7IJSVTbmOfChS3mzaJbp57AodjdPNKPrnrip8Nlh2Qanx.";
-            };
-        };
+    users.extraUsers.aaronh = {
+            home = "/home/aaronh";
+            extraGroups = [ "wheel" "networkmanager" ];
+            isNormalUser = true;
+            hashedPassword = "$6$aAcbLtqiqzySifls$jdKMOQjoWITHD/dWNNZVUH/qNc6aoJ7v4zYofi0U7IJSVTbmOfChS3mzaJbp57AodjdPNKPrnrip8Nlh2Qanx.";
+    };
     
     # Install some packages
     environment.systemPackages = 

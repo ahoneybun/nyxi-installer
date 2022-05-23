@@ -43,6 +43,11 @@ echo ""
 echo "Which is the root partition?"
 read rootName
 
+echo ""
+echo "Which is your username?"
+read userName
+echo ""
+
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName         
 
@@ -89,6 +94,10 @@ sudo nixos-generate-config --root /mnt
 
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/config.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
+# Replacing username
+sudo sed -i "s/aaronh/$userName/g" /mnt/etc/nixos/configuration.nix
+sudo sed -i "s/\/home\/aaronh/\/home\/$userName/g" /mnt/etc/nixos/configuration.nix
+
 # Install
 sudo nixos-install
 
@@ -105,6 +114,3 @@ sudo nixos-install
 
 # Removed install script.
 rm install.sh
-
-# Remove setup script
-# rm setup.sh
