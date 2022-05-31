@@ -85,10 +85,8 @@
     # Enable CUPS
     services.printing.enable = true;
 
-    # system stateVersion
-    system.stateVersion = "22.05";
-
     # System 
+    system.stateVersion = "22.05";
     system.autoUpgrade.enable = true;
     system.autoUpgrade.allowReboot = true;
 
