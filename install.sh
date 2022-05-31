@@ -43,11 +43,6 @@ echo ""
 echo "Which is the root partition?"
 read rootName
 
-echo ""
-echo "Which is your username?"
-read userName
-echo ""
-
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName         
 
@@ -80,10 +75,10 @@ sudo btrfs subvolume create /mnt/@home
 sudo umount /mnt
 
 # Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@ /dev/lvm/root /mnt
+sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
 
 sudo mkdir /mnt/home/
-sudo mount -o noatime,commit=120,compress=zstd:10,space_cache,subvol=@home /dev/lvm/root /mnt/home
+sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
 
 # Mount the EFI partition.
 sudo mkdir /mnt/boot/
@@ -92,11 +87,8 @@ sudo mount $efiName /mnt/boot
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
-curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/config.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-
-# Replacing username
-sudo sed -i "s/aaronh/$userName/g" /mnt/etc/nixos/configuration.nix
-sudo sed -i "s/\/home\/aaronh/\/home\/$userName/g" /mnt/etc/nixos/configuration.nix
+curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/split-config/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/split-config/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
 # Install
 sudo nixos-install

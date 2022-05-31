@@ -7,6 +7,7 @@
     imports =
         [
             ./hardware-configuration.nix
+            ./plasma.nix
         ];
 
     boot.loader = {
@@ -19,12 +20,6 @@
           preLVM = true;
        };
     };
-
-    # Allow Unfree
-    nixpkgs.config.allowUnfree = true;
-
-    # Enable 32 Bit libraries for applications like Steam
-    hardware.opengl.driSupport32Bit = true;
 
     # Name your host machine
     networking.hostName = "NixOS"; 
@@ -68,22 +63,12 @@
                 fish
                 flatpak
                 git
-                libsForQt5.bismuth
-                libsForQt5.kde-gtk-config
-                libsForQt5.plasma-nm
-                libsForQt5.plasma-pa
-                libsForQt5.sddm
                 steam
                 thunderbird
             ]; 
  
     # Enable the OpenSSH daemon
     services.openssh.enable = true;
-    
-    # Plasma
-    services.xserver.enable = true;
-    services.xserver.displayManager.sddm.enable = true;
-    services.xserver.desktopManager.plasma5.enable = true;
 
     # Enable Pipewire
     security.rtkit.enable = true;
@@ -101,6 +86,7 @@
     services.printing.enable = true;
 
     # System 
+    system.stateVersion = "22.05";
     system.autoUpgrade.enable = true;
     system.autoUpgrade.allowReboot = true;
 
