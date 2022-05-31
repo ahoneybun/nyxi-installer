@@ -87,6 +87,7 @@ sudo mount $efiName /mnt/boot
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
+sudo curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/plasma.nix > /mnt/etc/nixos/plasma.nix
 sudo curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/configuration.nix > /mnt/etc/nixos/configuration.nix
 
 # Install
