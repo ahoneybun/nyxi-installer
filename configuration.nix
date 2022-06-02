@@ -85,6 +85,12 @@
     # Enable CUPS
     services.printing.enable = true;
 
+    # Allow Unfree
+    nixpkgs.config.allowUnfree = true;
+
+    # Enable 32 Bit libraries for applications like Steam
+    hardware.opengl.driSupport32Bit = true;
+
     # System 
     system.stateVersion = "22.05";
     system.autoUpgrade.enable = true;
