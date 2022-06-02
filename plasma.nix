@@ -1,12 +1,6 @@
 { config, pkgs, ... }: 
 
 {
-     # Allow Unfree
-    nixpkgs.config.allowUnfree = true;
-
-    # Enable 32 Bit libraries for applications like Steam
-    hardware.opengl.driSupport32Bit = true;
-
     # Plasma
     services.xserver.enable = true;
     services.xserver.displayManager.sddm.enable = true;
