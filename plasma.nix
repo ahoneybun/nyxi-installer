@@ -11,6 +11,7 @@
             with pkgs; 
             [
                 libsForQt5.bismuth
+                libsForQt5.full
                 libsForQt5.kate
                 libsForQt5.kde-gtk-config
                 libsForQt5.plasma-nm
