@@ -8,6 +8,8 @@
    environment.systemPackages = 
            with pkgs; 
               [
+               discord
+               slack
                virt-manager
               ];
 
