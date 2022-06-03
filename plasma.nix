@@ -10,6 +10,7 @@
     environment.systemPackages = 
             with pkgs; 
             [
+                libsForQt5.ark
                 libsForQt5.bismuth
                 libsForQt5.full
                 libsForQt5.kate
