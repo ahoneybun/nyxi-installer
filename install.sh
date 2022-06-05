@@ -43,6 +43,12 @@ echo ""
 echo "Which is the root partition?"
 read rootName
 
+echo ""
+echo "Do you want Hibernation?"
+echo "1) Yes"
+echo "2) No"
+read hibState
+
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName         
 
@@ -55,7 +61,18 @@ sudo cryptsetup luksOpen $rootName crypt-root
 sudo pvcreate /dev/mapper/crypt-root
 sudo vgcreate lvm /dev/mapper/crypt-root
 
-sudo lvcreate -L "$ramTotal"G -n swap lvm
+if [ $hibState = 1 ]; then
+   sudo lvcreate -L "$ramTotal"G -n swap lvm
+
+else
+
+if [ $hibState = 2 ]; then
+   sudo lvcreate -L 4G -n swap lvm
+
+fi
+
+fi
+
 sudo lvcreate -l '100%FREE' -n root lvm
 
 sudo cryptsetup config $rootName --label luks
