@@ -80,11 +80,16 @@ sudo cryptsetup config $rootName --label luks
 sudo mkswap /dev/lvm/swap              # swap partition
 sudo mkfs.btrfs -L root /dev/lvm/root  # /root partition
 
+# 0. Mount the filesystems.
 sudo swapon /dev/lvm/swap
+sudo mount /dev/lvm/root /mnt
 
 # Create Subvolumes
 sudo btrfs subvolume create /mnt/@
 sudo btrfs subvolume create /mnt/@home
+
+# Unmount root
+sudo umount /mnt
 
 # Mount the subvolumes.
 sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
