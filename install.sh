@@ -98,8 +98,7 @@ sudo mkdir /mnt/home/
 sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
 
 # Mount the EFI partition.
-sudo mkdir /mnt/boot/
-sudo mount $efiName /mnt/boot
+sudo mount --mkdir $efiName /mnt/boot/
 
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
@@ -109,10 +108,6 @@ curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/configuration.nix > 
 
 # Install
 sudo nixos-install
-
-# Start Setup section
-# sudo -i
-# curl https://gitlab.com/ahoneybun/nynx-installer/-/raw/main/setup.sh > /mnt/setup.sh
 
 # # Enter into installed OS
 # mount -o bind /dev /mnt/dev
