@@ -109,8 +109,8 @@ sudo nixos-generate-config --root /mnt
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
-# Generate Nix configuration again for UUID's for LVM
-# sudo nixos-generate-config --root /mnt
+# Replace LUKS device with correct partition
+sudo sed -i "s|/dev/disk/by-label/luks|$rootName|g" /mnt/etc/configuration.nix
 
 # Install
 sudo nixos-install
