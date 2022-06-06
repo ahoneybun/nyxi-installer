@@ -109,7 +109,7 @@ curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/plasma.nix > plasma.
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
 # Generate Nix configuration again for UUID's for LVM
-sudo nixos-generate-config --root /mnt
+# sudo nixos-generate-config --root /mnt
 
 # Install
 sudo nixos-install
