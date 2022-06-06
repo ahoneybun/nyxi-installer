@@ -13,6 +13,7 @@
                 libsForQt5.ark
                 libsForQt5.bismuth
                 libsForQt5.full
+                libsForQt5.kalendar
                 libsForQt5.kate
                 libsForQt5.kdeconnect-kde
                 libsForQt5.kde-gtk-config
