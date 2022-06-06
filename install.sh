@@ -101,11 +101,12 @@ sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mn
 sudo mkdir /mnt/boot/
 sudo mount $efiName /mnt/boot
 
-# Generate Nix configuration
-sudo nixos-generate-config --root /mnt
-
+# Coping over my config files
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+
+# Generate Nix configuration
+sudo nixos-generate-config --root /mnt
 
 # Install
 sudo nixos-install
