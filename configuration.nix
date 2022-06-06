@@ -55,6 +55,12 @@
             hashedPassword = "$6$aAcbLtqiqzySifls$jdKMOQjoWITHD/dWNNZVUH/qNc6aoJ7v4zYofi0U7IJSVTbmOfChS3mzaJbp57AodjdPNKPrnrip8Nlh2Qanx.";
     };
     
+    # Allow Unfree
+    nixpkgs.config.allowUnfree = true;
+
+    # Enable 32 Bit libraries for applications like Steam
+    hardware.opengl.driSupport32Bit = true;
+
     # Install some packages
     environment.systemPackages = 
             with pkgs; 
@@ -86,12 +92,6 @@
 
     # Enable CUPS
     services.printing.enable = true;
-
-    # Allow Unfree
-    nixpkgs.config.allowUnfree = true;
-
-    # Enable 32 Bit libraries for applications like Steam
-    hardware.opengl.driSupport32Bit = true;
 
     # System 
     system.stateVersion = "22.05";
