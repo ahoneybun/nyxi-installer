@@ -9,6 +9,11 @@ At the core of this installer it does the following:
 - Installs Plasma
 - Installs needed packages
 
+Files:
+
+- `configuration.nix` : This is the main file for the base system including some applications that I use
+- `plasma.nix` : This file is for the desktop, login manager and other KDE applications
+
 Tested on the following drives:
 - SATA 
 - NVMe
@@ -43,7 +48,7 @@ The following will happen:
 - Creates a GPT partition table for `/dev/***`.
 - Create a +512M EFI partiton at `/dev/***1`.
 - Create a encrypted LVM at `/dev/***2`.
-- Create a swap partition in the LVM and sets it as the same size as the RAM for hibernation.
+- Create a swap partition in the LVM and sets it as the same size as the RAM for hibernation if requested.
 - Create a root partition in the LVM.
 - Install systemd-boot.
 
