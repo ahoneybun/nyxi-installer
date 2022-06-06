@@ -65,6 +65,7 @@
                 git
                 steam
                 thunderbird
+                restic
             ]; 
  
     # Enable the OpenSSH daemon
