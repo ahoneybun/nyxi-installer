@@ -66,6 +66,7 @@
                 steam
                 thunderbird
                 restic
+                wget
             ]; 
  
     # Enable the OpenSSH daemon
