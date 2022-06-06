@@ -110,7 +110,7 @@ curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/plasma.nix > plasma.
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
 # Replace LUKS device with correct partition
-sudo sed -i "s|/dev/disk/by-label/luks|$rootName|g" /mnt/etc/configuration.nix
+sudo sed -i "s|/dev/disk/by-label/luks|$rootName|g" /mnt/etc/nixos/configuration.nix
 
 # Install
 sudo nixos-install
