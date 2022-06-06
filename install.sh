@@ -115,12 +115,5 @@ sudo nixos-install
 # sudo -i
 # curl https://gitlab.com/ahoneybun/nynx-installer/-/raw/main/setup.sh > /mnt/setup.sh
 
-# # Enter into installed OS
-# mount -o bind /dev /mnt/dev
-# mount -o bind /proc /mnt/proc
-# mount -o bind /sys /mnt/sys
-# chroot /mnt /nix/var/nix/profiles/system/activate
-# chroot /mnt /run/current-system/sw/bin/sh setup.sh
-
 # Removed install script.
 rm install.sh
