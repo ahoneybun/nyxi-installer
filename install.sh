@@ -107,6 +107,7 @@ sudo nixos-generate-config --root /mnt
 
 # Coping over my config files
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
 # Replace LUKS device with correct partition
