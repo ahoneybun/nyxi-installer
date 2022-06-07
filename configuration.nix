@@ -8,6 +8,7 @@
         [
             ./hardware-configuration.nix
             ./plasma.nix
+            ./programs.nix
         ];
 
     boot.loader = {
