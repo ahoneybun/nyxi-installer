@@ -5,9 +5,9 @@ This installer is named after my doggo Onyxia.
 At the core of this installer it does the following:
 
 - Partition the drive of your choice
-- Installs a base of NixOS
-- Installs Plasma
-- Installs needed packages
+- Installs a base of NixOS (`configuration.nix`)
+- Installs Plasma (`plasma.nix`)
+- Installs needed packages (`programs.nix`)
 
 Nix files:
 
