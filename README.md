@@ -9,11 +9,16 @@ At the core of this installer it does the following:
 - Installs Plasma
 - Installs needed packages
 
-Files:
+Nix files:
 
 - `configuration.nix` : This is the main file for the base system including some applications that I use
 - `plasma.nix` : This file is for the desktop, login manager and other KDE applications
 - `programs.nix` : This file adds applications like Slack, Discord and virt-manager including turning on the services
+
+Plasma files:
+
+- `configs/kwinrc` : This has my setting for the Super key (Meta in Plasma) behavior
+- `configs/kglobalshortcutsrc` : This has window control shortcuts like moving between Workspaces (Desktops in Plasma)
 
 Tested on the following drives:
 - SATA 
