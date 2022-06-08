@@ -3,7 +3,7 @@
 services.nginx = {
   enable = true;
   virtualHosts."127.0.0.1" = {
-    root = "/var/www/blog";
+    root = "/var/www/html";
     locations."~ \.php$".extraConfig = ''
       fastcgi_pass  unix:${config.services.phpfpm.pools.mypool.socket};
       fastcgi_index index.php;
