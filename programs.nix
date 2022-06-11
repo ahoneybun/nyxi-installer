@@ -9,6 +9,7 @@
            with pkgs; 
               [
                discord
+               libreoffice-fresh
                slack
                virt-manager
               ];
