@@ -17,6 +17,7 @@
                 libsForQt5.kate
                 libsForQt5.kdeconnect-kde
                 libsForQt5.kde-gtk-config
+                libsForQt5.plasma-framework
                 libsForQt5.plasma-nm
                 libsForQt5.plasma-pa
                 libsForQt5.sddm
