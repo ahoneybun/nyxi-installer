@@ -75,7 +75,7 @@ fi
 
 sudo lvcreate -l '100%FREE' -n root lvm
 
-sudo btrfs filesystem label $rootName luks
+# sudo btrfs filesystem label $rootName luks
 # sudo cryptsetup config $rootName --label luks
 
 sudo mkswap /dev/lvm/swap              # swap partition
