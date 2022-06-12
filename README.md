@@ -19,6 +19,8 @@ Plasma files:
 
 - `configs/kwinrc` : This has my setting for the Super key (Meta in Plasma) behavior
 - `configs/kglobalshortcutsrc` : This has window control shortcuts like moving between Workspaces (Desktops in Plasma)
+- `configs/krunnerrc` : Sets KRunner to in the center of the screen when activated
+- `configs/kdeglobals` : Sets the theme to Breeze Dark
 
 Tested on the following drives:
 - SATA 
@@ -60,8 +62,7 @@ The following will happen:
 
 ## Roadmap
 
-- [ ] Change KWin shortcuts (Workspace changing)
-- [ ] Change KRunner shortcut (User Super key [Meta] instead)
+- [ ] 
 
 # Possible Ideas
 
