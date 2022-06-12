@@ -58,13 +58,10 @@ The following will happen:
 - Create a root partition in the LVM.
 - Install systemd-boot.
 
-## After Installation ...
-
-...
-
 ## Roadmap
 
-- [ ]
+- [ ] Change KWin shortcuts (Workspace changing)
+- [ ] Change KRunner shortcut (User Super key [Meta] instead)
 
 # Possible Ideas
 
