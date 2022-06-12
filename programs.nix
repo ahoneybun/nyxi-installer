@@ -12,6 +12,7 @@
                libreoffice-fresh
                slack
                virt-manager
+               vscode
               ];
 
    programs.fish.enable = true;
