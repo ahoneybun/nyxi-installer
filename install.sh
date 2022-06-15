@@ -116,9 +116,5 @@ sudo sed -i "s|/dev/disk/by-label/luks|$rootName|g" /mnt/etc/nixos/configuration
 # Install
 sudo nixos-install
 
-# Start Setup section
-# sudo -i
-# curl https://gitlab.com/ahoneybun/nynx-installer/-/raw/main/setup.sh > /mnt/setup.sh
-
 # Removed install script.
 rm install.sh
