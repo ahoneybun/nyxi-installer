@@ -50,6 +50,7 @@
 
     # Define user accounts
     users.extraUsers.aaronh = {
+            description = "Aaron Honeycutt";
             home = "/home/aaronh";
             extraGroups = [ "wheel" "networkmanager" "adm"];
             isNormalUser = true;
