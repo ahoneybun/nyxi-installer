@@ -9,6 +9,8 @@ At the core of this installer it does the following:
 - Installs Plasma (`plasma.nix`)
 - Installs needed packages (`programs.nix`)
 
+nix files are from [this repo](https://gitlab.com/ahoneybun/nix-configs/) but that can be changed as needed.
+
 Tested on the following drives:
 - SATA 
 - NVMe
