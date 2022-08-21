@@ -9,21 +9,6 @@ At the core of this installer it does the following:
 - Installs Plasma (`plasma.nix`)
 - Installs needed packages (`programs.nix`)
 
-Nix files: (nix-configs/)
-
-- `configuration.nix` : This is the main file for the base system including some applications that I use
-- `plasma.nix` : This file is for the desktop, login manager and other KDE applications
-- `programs.nix` : This file adds applications like Slack, Discord and virt-manager including turning on the services
-- `oryp6.nix` : This file is mainly for my System76 Oryx Pro (oryp6) to add and enable the NVIDIA driver from stable
-- `unstable.nix` : This file has the applications that need to be from unstable to work like ProtonVPN software
-
-Plasma files: (configs)
-
-- `configs/kwinrc` : This has my setting for the Super key (Meta in Plasma) behavior
-- `configs/kglobalshortcutsrc` : This has window control shortcuts like moving between Workspaces (Desktops in Plasma)
-- `configs/krunnerrc` : Sets KRunner to in the center of the screen when activated
-- `configs/kdeglobals` : Sets the theme to Breeze Dark
-
 Tested on the following drives:
 - SATA 
 - NVMe
