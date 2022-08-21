@@ -47,5 +47,5 @@
       max-free = ${toString (1024 * 1024 * 1024)}
     '';
   };
-  system.stateVersion = "20.09";
+  system.stateVersion = "22.11";
 }
