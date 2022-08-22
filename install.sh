@@ -105,9 +105,26 @@ sudo mount $efiName /mnt/boot
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
-# Coping over my nix files
+echo ""
+echo "Which Desktop Environment do you want?"
+echo "1) Plasma"
+echo "2) GNOME"
+read desktopChoice
+
+if [ $desktopChoice = 1 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
+
+else
+
+if [ $desktopChoice = 2 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
+
+fi
+
+fi
+
+# Copy my nix configs over
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
 # Replace LUKS device with correct partition
