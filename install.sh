@@ -113,12 +113,30 @@ read desktopChoice
 
 if [ $desktopChoice = 1 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
-   sed -e '1n;/^./hardware-configuration.nix/a\plasma.nix' /mnt/etc/nixos/configuration.nix
+   sed -e '1n;/^./hardware-configuration.nix/a\./plasma.nix' /mnt/etc/nixos/configuration.nix
 else
 
 if [ $desktopChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sed -e '1n;/^./hardware-configuration.nix/a\gnome.nix' /mnt/etc/nixos/configuration.nix
+   sed -e '1n;/^./hardware-configuration.nix/a\./gnome.nix' /mnt/etc/nixos/configuration.nix
+fi
+
+fi
+
+echo ""
+echo "Which device are you installing to?"
+echo "1) Oryx Pro (oryp6)"
+echo "2) HP Omen (15-dh0015nr)"
+read device
+
+if [ $device = 1 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
+   sed -e '1n;/^./hardware-configuration.nix/a\.oryp6.nix' /mnt/etc/nixos/configuration.nix
+else
+
+if [ $device = 2 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
+   sed -e '1n;/^./hardware-configuration.nix/a\.hp-omen.nix' /mnt/etc/nixos/configuration.nix
 fi
 
 fi
