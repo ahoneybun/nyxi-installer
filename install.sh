@@ -113,12 +113,12 @@ read desktopChoice
 
 if [ $desktopChoice = 1 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
-   sed -e '1n;/^./hardware-configuration.nix/a\./plasma.nix' /mnt/etc/nixos/configuration.nix
+   sed -i '10 i ./plasma.nix' /mnt/etc/nixos/configuration.nix
 else
 
 if [ $desktopChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sed -e '1n;/^./hardware-configuration.nix/a\./gnome.nix' /mnt/etc/nixos/configuration.nix
+   sed -i '10 i ./gnome.nix' /mnt/etc/nixos/configuration.nix
 fi
 
 fi
