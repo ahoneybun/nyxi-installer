@@ -134,12 +134,12 @@ echo "2) HP Omen (15-dh0015nr)"
 read device
 
 if [ $device = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
    sudo sed -i '11 i ./oryp6.nix' /mnt/etc/nixos/configuration.nix
 else
 
 if [ $device = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
    sudo sed -i '11 i ./hp-omen.nix' /mnt/etc/nixos/configuration.nix
 fi
 
