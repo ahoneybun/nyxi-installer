@@ -117,12 +117,12 @@ read desktopChoice
 
 if [ $desktopChoice = 1 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
-   sed -i '10 i ./plasma.nix' /mnt/etc/nixos/configuration.nix
+   sudo sed -i '10 i ./plasma.nix' /mnt/etc/nixos/configuration.nix
 else
 
 if [ $desktopChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sed -i '10 i ./gnome.nix' /mnt/etc/nixos/configuration.nix
+   sudo sed -i '10 i ./gnome.nix' /mnt/etc/nixos/configuration.nix
 fi
 
 fi
@@ -135,12 +135,12 @@ read device
 
 if [ $device = 1 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
-   sed -i '11 i ./oryp6.nix' /mnt/etc/nixos/configuration.nix
+   sudo sed -i '11 i ./oryp6.nix' /mnt/etc/nixos/configuration.nix
 else
 
 if [ $device = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-   sed -i '11 i ./hp-omen.nix' /mnt/etc/nixos/configuration.nix
+   sudo sed -i '11 i ./hp-omen.nix' /mnt/etc/nixos/configuration.nix
 fi
 
 fi
