@@ -105,6 +105,10 @@ sudo mount $efiName /mnt/boot
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
+# Copy my nix configs over
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
+
 echo ""
 echo "Which Desktop Environment do you want?"
 echo "1) Plasma"
@@ -136,14 +140,10 @@ else
 
 if [ $device = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-    sed -i '11 i ./hp-omen.nix' /mnt/etc/nixos/configuration.nix
+   sed -i '11 i ./hp-omen.nix' /mnt/etc/nixos/configuration.nix
 fi
 
 fi
-
-# Copy my nix configs over
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
 # Replace LUKS device with correct partition
 sudo sed -i "s|/dev/disk/by-label/luks|$rootName|g" /mnt/etc/nixos/configuration.nix
