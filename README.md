@@ -6,8 +6,9 @@ At the core of this installer it does the following:
 
 - Partition the drive of your choice
 - Installs a base of NixOS (`configuration.nix`)
-- Installs Plasma (`plasma.nix`)
+- Installs a DE/WM of your choice (currently supporting GNOME and Plasma)
 - Installs needed packages (`programs.nix`)
+- Installs needed packages for certain hardware 
 
 nix files are from [this repo](https://gitlab.com/ahoneybun/nix-configs/) but that can be changed as needed.
 
