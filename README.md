@@ -40,6 +40,12 @@ https://nixos.org/manual/nixos/stable/index.html#sec-installation-booting-networ
 curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh > install.sh; sh install.sh
 ```
 
+or
+
+```
+sh <(https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
+```
+
 The following will happen:
 
 - Clear partition table for `/dev/***`.
