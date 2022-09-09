@@ -17,10 +17,11 @@ echo g       # Create new GPT partition table
 echo n       # Create new partition (for EFI).
 echo         # Set default partition number.
 echo         # Set default first sector.
-echo +512M   # Set +512M as last sector.
+echo +1G     # Set +1G as last sector.
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
+echo         # Set last sector.
 echo n       # Create new partition (for swap).
 echo         # Set default partition number.
 echo         # Set default first sector.
