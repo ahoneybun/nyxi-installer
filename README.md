@@ -50,7 +50,7 @@ The following will happen:
 
 - Clear partition table for `/dev/***`.
 - Creates a GPT partition table for `/dev/***`.
-- Create a +512M EFI partiton at `/dev/***1`.
+- Create a 1GB EFI partiton at `/dev/***1`.
 - Create a encrypted LVM at `/dev/***2`.
 - Create a swap partition in the LVM and sets it as the same size as the RAM for hibernation if requested.
 - Create a root partition in the LVM.
