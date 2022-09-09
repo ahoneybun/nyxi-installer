@@ -43,7 +43,7 @@ curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh > install
 or
 
 ```
-sh <(https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
+sh <(curl -L https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
 ```
 
 The following will happen:
