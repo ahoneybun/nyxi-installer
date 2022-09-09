@@ -164,6 +164,3 @@ sudo sed -i "s|/dev/disk/by-label/luks|$rootName|g" /mnt/etc/nixos/configuration
 
 # Install
 sudo nixos-install
-
-# Removed install script.
-rm install.sh
