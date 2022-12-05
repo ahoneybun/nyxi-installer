@@ -14,10 +14,6 @@ read driveName
 
 (
 echo g       # Create new GPT partition table
-echo n       # Create new partition (for EFI).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo +1G     # Set +1G as last sector.
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
@@ -26,20 +22,12 @@ echo n       # Create new partition (for swap).
 echo         # Set default partition number.
 echo         # Set default first sector.
 echo         # Set default last sector (rest of the disk).
-echo t       # Change partition type.
-echo 1       # Pick first partition.
-echo 1       # Change first partition to EFI system.
+
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
 # List the new partitions.
 lsblk -f
-
-# Format the partitions :
-echo "----------"
-echo ""
-echo "Which is the EFI partition?"
-read efiName
 
 echo ""
 echo "Which is the root partition?"
@@ -49,10 +37,7 @@ echo ""
 echo "Do you want Hibernation?"
 echo "1) Yes"
 echo "2) No"
-read hibState
-
-# Create EFI partition
-sudo mkfs.fat -F32 -n EFI $efiName         
+read hibState      
 
 # Encrypt the root partition
 sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
@@ -100,10 +85,6 @@ sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
 sudo mkdir /mnt/home/
 sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
 
-# Mount the EFI partition.
-sudo mkdir /mnt/boot/
-sudo mount $efiName /mnt/boot
-
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
@@ -113,7 +94,7 @@ sudo nixos-generate-config --root /mnt
 echo "Default username and password are in the configuration.nix file"
 echo "Password is hashed so it is not plaintext"
 
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/php.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
 echo ""
