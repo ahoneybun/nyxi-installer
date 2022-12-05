@@ -97,6 +97,7 @@ echo ""
 echo "Which Desktop Environment do you want?"
 echo "1) Plasma"
 echo "2) GNOME"
+echo "0) None or N/A"
 read desktopChoice
 
 # Change the URL to match where you are hosting your DE/WM .nix file
