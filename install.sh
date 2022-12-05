@@ -94,6 +94,10 @@ sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
 sudo mkdir /mnt/home/
 sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
 
+# Mount the EFI partition.
+sudo mkdir /mnt/boot/
+sudo mount $efiName /mnt/boot
+
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
 
