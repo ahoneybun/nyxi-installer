@@ -17,10 +17,6 @@ echo g       # Create new GPT partition table
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
-echo -8G     # Set last sector.
-echo n       # Create new partition (for swap).
-echo         # Set default partition number.
-echo         # Set default first sector.
 echo         # Set default last sector (rest of the disk).
 
 echo w       # write changes. 
