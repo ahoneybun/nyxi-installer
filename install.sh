@@ -21,7 +21,7 @@ echo +1G     # Set +1G as last sector.
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
-echo         # Set last sector.
+echo -4G     # Set last sector.
 echo n       # Create new partition (for swap).
 echo         # Set default partition number.
 echo         # Set default first sector.
