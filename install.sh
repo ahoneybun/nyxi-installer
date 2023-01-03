@@ -29,6 +29,9 @@ echo         # Set default last sector (rest of the disk).
 echo t       # Change partition type.
 echo 1       # Pick first partition.
 echo 1       # Change first partition to EFI system.
+echo t       # Change partition type.
+echo 1       # Pick last partition.
+echo 19      # Change last partition to swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
