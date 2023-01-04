@@ -21,11 +21,7 @@ echo +1G     # Set +1G as last sector.
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
-echo -4G     # Set last sector.
-echo n       # Create new partition (for swap).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo         # Set default last sector (rest of the disk).
+echo         # Set last sector.
 echo t       # Change partition type.
 echo 1       # Pick first partition.
 echo 1       # Change first partition to EFI system.
