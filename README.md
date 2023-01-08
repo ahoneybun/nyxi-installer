@@ -56,6 +56,10 @@ The following will happen:
 - Create a root partition in the LVM.
 - Install systemd-boot.
 
+## Screenshots
+
+![GNOME Installation](Screenshots/Screenshot_from_2023-01-08_00-21-43.png)
+
 ## Roadmap
 
 - [ ] 
