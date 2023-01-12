@@ -68,4 +68,4 @@ The following will happen:
 
 # Possible Ideas
 
-- [ ] 
+- [ ] Install nix-channels such as `nixos-hardware` and `home-manager` after install.
