@@ -60,7 +60,7 @@ The following will happen:
 
 ## Screenshots
 
-![GNOME Installation](Screenshots/Screenshot_from_2023-01-08_00-21-43.png)
+![GNOME Installation](Screenshots/pinebook-pro_nixos.png)
 
 ## Roadmap
 
