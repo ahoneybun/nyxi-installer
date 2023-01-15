@@ -13,7 +13,7 @@ echo "Which drive do we want to use for this installation?"
 read driveName
 
 (
-echo g       # Create new GPT partition table.
+echo g       # Create new GPT partition table
 echo n       # Create new partition (for EFI).
 echo         # Set default partition number.
 echo         # Set default first sector.
@@ -21,17 +21,9 @@ echo +1G     # Set +1G as last sector.
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
-echo -8G     # Set -8G as the last sector.
-echo n       # Create new partiton (for Swap).
-echo         # Set default partiion number.
-echo         # Set default first sector.
-echo         # Set default last sector.
+echo         # Set last sector.
 echo t       # Change partition type.
 echo 1       # Pick first partition.
-echo 1       # Change to EFI System.
-echo t       # Change partition type.
-echo 3       # Pick last partition.
-echo 19      # change to Linux wwap.
 echo 1       # Change first partition to EFI system.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
