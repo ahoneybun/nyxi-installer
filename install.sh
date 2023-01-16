@@ -82,6 +82,7 @@ echo ""
 echo "Which Desktop Environment do you want?"
 echo "1) Plasma"
 echo "2) GNOME"
+echo "3) Pantheon"
 echo "0) None or N/A"
 read desktopChoice
 
@@ -96,6 +97,13 @@ else
 if [ $desktopChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo sed -i "10 i \           ./gnome.nix" /mnt/etc/nixos/configuration.nix
+else
+
+if [ $desktopChoice = 3 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./pantheon.nix" /mnt/etc/nixos/configuration.nix
+else
+
 fi
 
 fi
