@@ -56,11 +56,9 @@ The following will happen:
 - Create a encrypted LVM at `/dev/***2`.
 - Create a swap partition in the LVM and sets it as the same size as the RAM for hibernation if requested.
 - Create a root partition in the LVM.
-- Install systemd-boot.
+- Install systemd-boot*.
 
-## Screenshots
-
-![GNOME Installation](Screenshots/pinebook-pro_nixos.png)
+* Pinebook Pro is using GRUB currently. 
 
 ## Roadmap
 
