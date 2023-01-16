@@ -58,19 +58,28 @@ sh <(curl -L https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
 
 The following will happen:
 
+### x86_64 - main branch
+
 - Clear partition table for `/dev/***`.
 - Creates a GPT partition table for `/dev/***`.
-- Create a 1GB EFI partiton at `/dev/***1`.
-- Create a encrypted LVM at `/dev/***2`.
-- Create a swap partition in the LVM and sets it as the same size as the RAM for hibernation if requested.
-- Create a root partition in the LVM.
-- Install systemd-boot*.
+- Creates a 1GB EFI partiton at `/dev/***1`.
+- Creates a encrypted LVM at `/dev/***2`.
+- Creates a swap partition in the LVM and sets it as the same size as the RAM for hibernation if requested.
+- Creates a root partition in the LVM.
+- Installs systemd-boot
 
-* Pinebook Pro is using GRUB currently and that is in the main-pbp branch
+### ARM64 (Pinebook Pro) - main-pbp branch
+
+- Clear partition table for `/dev/***`. 
+- Creates a GPT partition table for `/dev/***`.
+- Creates a 1GB EFI partiton at `/dev/***1`.
+- Creates a 4GB Swap partition at `/dev/***3`.
+- Creates a root partition with the rest of the space at `/dev/***2`.
+- Installs GRUB
 
 ## Roadmap
 
-- [ ] 
+- [ ] Merge ARM64 and x86_64 together into one branch
 
 # Possible Ideas
 
