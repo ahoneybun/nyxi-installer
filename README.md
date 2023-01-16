@@ -15,6 +15,7 @@ nix files are from [this repo](https://gitlab.com/ahoneybun/nix-configs/) but th
 Tested on the following drives:
 - SATA 
 - NVMe
+- eMMC
 
 Tested on x86_64 machines.
 
@@ -34,17 +35,24 @@ Prerequisites:
 
 ## Connect to internet
 
+```sh
+> add_network
+0
+> set_network 0 ssid "myhomenetwork"
+OK
+> set_network 0 psk "mypassword"
+OK
+> set_network 0 key_mgmt WPA-PSK
+OK
+> enable_network 0
+OK
+```
+
 https://nixos.org/manual/nixos/stable/index.html#sec-installation-booting-networking
 
 ## Start the installer
 
-```
-curl https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh > install.sh; sh install.sh
-```
-
-or
-
-```
+```sh
 sh <(curl -L https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
 ```
 
@@ -58,7 +66,7 @@ The following will happen:
 - Create a root partition in the LVM.
 - Install systemd-boot*.
 
-* Pinebook Pro is using GRUB currently. 
+* Pinebook Pro is using GRUB currently and that is in the main-pbp branch
 
 ## Roadmap
 
