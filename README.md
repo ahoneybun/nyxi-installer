@@ -17,7 +17,7 @@ Tested on the following drives:
 - NVMe
 - eMMC
 
-Tested on the following architectures
+Tested on the following architectures:
 - x86_64 
 - aarch64 
 
