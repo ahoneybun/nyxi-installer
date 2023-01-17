@@ -17,7 +17,7 @@ Tested on the following drives:
 - NVMe
 - eMMC
 
-Tested on x86_64 machines.
+Tested on x86_64 and aarch64 machines.
 
 This sets the hashedPassword to my own so you will need to update it to match your own as well as the username. I created the hash with this command:
 
