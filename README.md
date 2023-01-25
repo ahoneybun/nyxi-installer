@@ -60,18 +60,6 @@ sh <(curl -L https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
 
 The following will happen:
 
-### x86_64 - main branch
-
-- Clear partition table for `/dev/***`.
-- Creates a GPT partition table for `/dev/***`.
-- Creates a 1GB EFI partiton at `/dev/***1`.
-- Creates a encrypted LVM at `/dev/***2`.
-- Creates a swap partition in the LVM and sets it as the same size as the RAM for hibernation if requested.
-- Creates a root partition in the LVM.
-- Installs systemd-boot
-
-### ARM64 (Pinebook Pro) - main-pbp branch
-
 - Clear partition table for `/dev/***`. 
 - Creates a GPT partition table for `/dev/***`.
 - Creates a 1GB EFI partiton at `/dev/***1`.
@@ -81,7 +69,7 @@ The following will happen:
 
 ## Roadmap
 
-- [ ] Merge ARM64 and x86_64 together into one branch
+- [x] Merge ARM64 and x86_64 together into one branch
 
 # Possible Ideas
 
