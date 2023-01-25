@@ -25,6 +25,9 @@ echo         # Set last sector.
 echo t       # Change partition type.
 echo 1       # Pick first partition.
 echo 1       # Change first partition to EFI system.
+echo t       # Change partition type.
+echo 3       # Pick the last partition. 
+echo 19      # Change last partition to Swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
@@ -42,59 +45,19 @@ echo "Which is the root partition?"
 read rootName
 
 echo ""
-echo "Do you want Hibernation?"
-echo "1) Yes"
-echo "2) No"
-read hibState
+echo "Which is the swap partition?"
+read swapName
 
 # Create EFI partition
-sudo mkfs.fat -F32 -n EFI $efiName         
+sudo mkfs.fat -F32 -n EFI $efiName       
 
-# Encrypt the root partition
-sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
-
-# Open the encrypted root partition
-sudo cryptsetup luksOpen $rootName crypt-root
-
-sudo pvcreate /dev/mapper/crypt-root
-sudo vgcreate lvm /dev/mapper/crypt-root
-
-if [ $hibState = 1 ]; then
-   sudo lvcreate -L "$ramTotal"G -n swap lvm
-
-else
-
-if [ $hibState = 2 ]; then
-   sudo lvcreate -L 4G -n swap lvm
-
-fi
-
-fi
-
-sudo lvcreate -l '100%FREE' -n root lvm
-
-# sudo btrfs filesystem label $rootName luks
-# sudo cryptsetup config $rootName --label luks
-
-sudo mkswap /dev/lvm/swap              # swap partition
-sudo mkfs.btrfs -L root /dev/lvm/root  # /root partition
+sudo mkswap $swapName      # swap partition
+sudo mkfs.ext4 $rootName   # /root partition
+sudo e2label $rootName NixOS
 
 # 0. Mount the filesystems.
-sudo swapon /dev/lvm/swap
-sudo mount /dev/lvm/root /mnt
-
-# Create Subvolumes
-sudo btrfs subvolume create /mnt/@
-sudo btrfs subvolume create /mnt/@home
-
-# Unmount root
-sudo umount /mnt
-
-# Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
-
-sudo mkdir /mnt/home/
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
+sudo swapon $swapName
+sudo mount $rootName /mnt
 
 # Mount the EFI partition.
 sudo mkdir /mnt/boot/
@@ -116,6 +79,8 @@ echo ""
 echo "Which Desktop Environment do you want?"
 echo "1) Plasma"
 echo "2) GNOME"
+echo "3) Pantheon"
+echo "0) None or N/A"
 read desktopChoice
 
 # Change the URL to match where you are hosting your DE/WM .nix file
@@ -142,6 +107,7 @@ echo ""
 echo "Which device are you installing to?"
 echo "1) Oryx Pro (oryp6)"
 echo "2) HP Omen (15-dh0015nr)"
+echo "3) Pinebook Pro"
 echo "0) None or N/A"
 read deviceChoice
 
@@ -155,13 +121,15 @@ else
 
 if [ $deviceChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
+   sudo sed -i "10 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
+fi
+
+if [ $deviceChoice = 3 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > pinebook-pro.nix; sudo mv -f pinebook-pro.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./pinebook-pro.nix" /mnt/etc/nixos/configuration.nix 
 fi
 
 fi
-
-# Replace LUKS device with correct partition
-sudo sed -i "s|/dev/disk/by-label/luks|$rootName|g" /mnt/etc/nixos/configuration.nix
 
 # Install
 sudo nixos-install
