@@ -130,11 +130,12 @@ else
 
 if [ $deviceChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
+   sudo sed -i "10 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
 else
 
 if [ $deviceChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > pinebook-pro.nix; sudo mv -f pinebook-pro.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./pinebook-pro.nix" /mnt/etc/nixos/configuration.nix 
 fi
 
 fi
