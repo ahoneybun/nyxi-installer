@@ -129,8 +129,8 @@ if [ $deviceChoice = 2 ]; then
 fi
 
 if [ $deviceChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > pinebook-pro.nix; sudo mv -f pinebook-pro.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./pinebook-pro.nix" /mnt/etc/nixos/configuration.nix 
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
 fi
 
 fi
