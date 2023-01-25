@@ -63,9 +63,6 @@ sudo e2label $rootName NixOS
 sudo swapon $swapName
 sudo mount $rootName /mnt
 
-# Unmount root
-sudo umount /mnt
-
 # Mount the EFI partition.
 sudo mkdir /mnt/boot/
 sudo mount $efiName /mnt/boot
