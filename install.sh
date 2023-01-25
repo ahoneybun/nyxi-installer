@@ -106,8 +106,6 @@ else
 if [ $desktopChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
    sudo sed -i "10 i \           ./pantheon.nix" /mnt/etc/nixos/configuration.nix
-else
-
 fi
 
 fi
