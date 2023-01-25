@@ -55,7 +55,7 @@ https://nixos.org/manual/nixos/stable/index.html#sec-installation-booting-networ
 ## Start the installer
 
 ```sh
-sh <(curl -L https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main-pbp/install.sh)
+sh <(curl -L https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
 ```
 
 The following will happen:
@@ -70,7 +70,7 @@ The following will happen:
 - Creates a root partition in the LVM.
 - Installs systemd-boot
 
-### ARM64 (Pinebook Pro) - main-pbp branch 
+### ARM64 (Pinebook Pro) - main-pbp branch
 
 - Clear partition table for `/dev/***`. 
 - Creates a GPT partition table for `/dev/***`.
