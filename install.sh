@@ -101,7 +101,7 @@ else
 if [ $desktopChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo sed -i "10 i \           ./gnome.nix" /mnt/etc/nixos/configuration.nix
-else
+fi
 
 if [ $desktopChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
@@ -129,7 +129,7 @@ else
 if [ $deviceChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
    sudo sed -i "10 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
-else
+fi
 
 if [ $deviceChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > pinebook-pro.nix; sudo mv -f pinebook-pro.nix /mnt/etc/nixos/
