@@ -110,8 +110,9 @@ fi
 echo ""
 echo "Which device are you installing to?"
 echo "1) Oryx Pro (oryp6)"
-echo "2) HP Omen (15-dh0015nr)"
-echo "3) Pinebook Pro"
+echo "2) Galago Pro (galp3-b)"
+echo "3) HP Omen (15-dh0015nr)"
+echo "4) Pinebook Pro"
 echo "0) None or N/A"
 read deviceChoice
 
@@ -124,11 +125,16 @@ if [ $deviceChoice = 1 ]; then
 else
 
 if [ $deviceChoice = 2 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./oryp6.nix" /mnt/etc/nixos/configuration.nix 
+else
+
+if [ $deviceChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
 fi
 
-if [ $deviceChoice = 3 ]; then
+if [ $deviceChoice = 4 ]; then
    #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
