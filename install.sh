@@ -128,12 +128,12 @@ else
 if [ $deviceChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/galp3-b.nix > galp3-b.nix; sudo mv -f galp3-b.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./galp3-b.nix" /mnt/etc/nixos/configuration.nix 
-else
+fi
 
 if [ $deviceChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/galp4.nix > galp4.nix; sudo mv -f galp4.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
-else
+fi
 
 if [ $deviceChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
