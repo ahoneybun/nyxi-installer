@@ -58,13 +58,24 @@ sudo mkfs.fat -F32 -n EFI $efiName
 sudo mkswap $swapName      # swap partition
 sudo mkfs.btrfs -L root $rootName  # /root partition
 
-# 0. Mount the filesystems.
+# Mount the filesystems.
 sudo swapon $swapName
 sudo mount $rootName /mnt
 
+# Create Subvolumes
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+
+# Unmount root
+sudo umount /mnt
+
+# Mount the subvolumes.
+mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
+mkdir /mnt/home
+mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
+
 # Mount the EFI partition.
-sudo mkdir /mnt/boot/
-sudo mount $efiName /mnt/boot
+mount --mkdir $efiName /mnt/boot/
 
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
