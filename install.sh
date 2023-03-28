@@ -56,8 +56,7 @@ read swapName
 sudo mkfs.fat -F32 -n EFI $efiName       
 
 sudo mkswap $swapName      # swap partition
-sudo mkfs.ext4 $rootName   # /root partition
-sudo e2label $rootName NixOS
+sudo mkfs.btrfs -L root $rootName  # /root partition
 
 # 0. Mount the filesystems.
 sudo swapon $swapName
