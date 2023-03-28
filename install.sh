@@ -63,19 +63,19 @@ sudo swapon $swapName
 sudo mount $rootName /mnt
 
 # Create Subvolumes
-btrfs subvolume create /mnt/@
-btrfs subvolume create /mnt/@home
+sudo btrfs subvolume create /mnt/@
+sudo btrfs subvolume create /mnt/@home
 
 # Unmount root
 sudo umount /mnt
 
 # Mount the subvolumes.
-mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
-mkdir /mnt/home
-mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
+sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
+sudo mkdir /mnt/home
+sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
 
 # Mount the EFI partition.
-mount --mkdir $efiName /mnt/boot/
+sudo mount --mkdir $efiName /mnt/boot/
 
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
