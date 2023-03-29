@@ -63,7 +63,7 @@ sudo swapon $swapName
 sudo mount $rootName /mnt
 
 # Create Subvolumes
-sudo btrfs subvolume create /mnt/@
+sudo btrfs subvolume create /mnt/@root
 sudo btrfs subvolume create /mnt/@home
 
 # Unmount root
