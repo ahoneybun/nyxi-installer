@@ -94,6 +94,7 @@ echo "Which Desktop Environment do you want?"
 echo "1) Plasma"
 echo "2) GNOME"
 echo "3) Pantheon"
+echo "4) Sway"
 echo "0) None or N/A"
 read desktopChoice
 
@@ -113,6 +114,11 @@ fi
 if [ $desktopChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
    sudo sed -i "10 i \           ./pantheon.nix" /mnt/etc/nixos/configuration.nix
+fi
+
+if [ $desktopChoice = 4 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/sway.nix > sway.nix; sudo mv -f sway.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./sway.nix" /mnt/etc/nixos/configuration.nix
 fi
 
 fi
