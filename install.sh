@@ -84,7 +84,7 @@ sudo btrfs subvolume create /mnt/@home
 sudo umount /mnt
 
 # Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
+sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@root /dev/lvm/root /mnt
 sudo mkdir /mnt/home
 sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
 
