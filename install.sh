@@ -84,9 +84,9 @@ sudo btrfs subvolume create /mnt/@home
 sudo umount /mnt
 
 # Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@ $rootName /mnt
-sudo mkdir /mnt/home
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home $rootName /mnt/home
+mount -o noatime,commit=120,compress=zstd:10,subvol=@ /dev/lvm/root /mnt
+mkdir /mnt/home
+mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
 
 # Mount the EFI partition.
 sudo mount --mkdir $efiName /mnt/boot/
