@@ -172,5 +172,8 @@ fi
 
 fi
 
+# Replace LUKS device
+sudo sed -i "s#/dev/sda#$rootName#g" /mnt/etc/nixos/configuration.nix
+
 # Install
 sudo nixos-install
