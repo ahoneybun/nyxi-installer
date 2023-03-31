@@ -55,12 +55,26 @@ read swapName
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName       
 
+# Encrypt the root partition
+sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
+
+# Open the encrypted root partition
+sudo cryptsetup luksOpen $rootName crypt-root
+
+sudo pvcreate /dev/mapper/crypt-root
+sudo vgcreate lvm /dev/mapper/crypt-root
+
+sudo lvcreate -L 4G -n swap lvm
+sudo lvcreate -l '100%FREE' -n root lvm
+
+sudo cryptsetup config $rootName --label luks
+
 sudo mkswap $swapName      # swap partition
 sudo mkfs.btrfs -L root $rootName  # /root partition
 
 # Mount the filesystems.
-sudo swapon $swapName
-sudo mount $rootName /mnt
+sudo swapon /dev/mapper/lvm-swap
+sudo mount /dev/mapper/lvm-root /mnt
 
 # Create Subvolumes
 sudo btrfs subvolume create /mnt/@root
@@ -86,7 +100,7 @@ sudo nixos-generate-config --root /mnt
 echo "Default username and password are in the configuration.nix file"
 echo "Password is hashed so it is not plaintext"
 
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/luks/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
 echo ""
@@ -150,13 +164,7 @@ if [ $deviceChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/galp4.nix > galp4.nix; sudo mv -f galp4.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
 fi
-
-if [ $deviceChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
-fi
-
-if [ $deviceChoice = 5 ]; then
+   #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; s
    #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
