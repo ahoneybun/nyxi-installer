@@ -69,8 +69,8 @@ sudo lvcreate -l '100%FREE' -n root lvm
 
 sudo cryptsetup config $rootName --label luks
 
-sudo mkswap $swapName      # swap partition
-sudo mkfs.btrfs -L root $rootName  # /root partition
+sudo mkswap /dev/lvm/swap              # swap partition
+sudo mkfs.btrfs -L root /dev/mapper/lvm-root  # /root partition
 
 # Mount the filesystems.
 sudo swapon /dev/mapper/lvm-swap
