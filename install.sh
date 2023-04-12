@@ -140,6 +140,7 @@ echo "2) Galago Pro (galp3-b)"
 echo "3) Galago Pro (galp4)"
 echo "4) HP Omen (15-dh0015nr)"
 echo "5) Pinebook Pro"
+echo "6) Virtual Machine"
 echo "0) None or N/A"
 read deviceChoice
 
@@ -167,6 +168,10 @@ elif [ $deviceChoice = 5 ]; then
    #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
+
+elif [ $deviceChoice = 6 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+fi
 
 fi
 
