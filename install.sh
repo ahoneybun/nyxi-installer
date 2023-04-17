@@ -35,28 +35,28 @@ echo 19      # Change last partition to Swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
-if [ $driveName == /dev/nvme* ]; then
+if [ $driveName = /dev/nvme* ]; then
   # Set variables
   efiName=${driveName}p1
   rootName=${driveName}p2
   swapName=${driveName}p3
 
 # Check if the device is a SATA drive
-elif [ $driveName == /dev/sd* ]; then
+elif [ $driveName = /dev/sd* ]; then
   # Set variables
   efiName=${driveName}1
   rootName=${driveName}2
   swapName=${driveName}3
 
 # Check if the device is a Virtual drive
-elif [ $driveName == /dev/vd* ]; then
+elif [ $driveName = /dev/vd* ]; then
   # Set variables
   efiName="{$driveName}1"
   rootName="{$driveName}2"
   swapName="{$driveName}3"
 
 # Check if the device is an eMMC drive
-elif [ $driveName == /dev/mmcblk* ]; then
+elif [ $driveName = /dev/mmcblk* ]; then
   # Set variables
   efiName=${driveName}1
   rootName=${driveName}2
