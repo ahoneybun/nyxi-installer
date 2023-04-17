@@ -138,9 +138,10 @@ echo "Which device are you installing to?"
 echo "1) Oryx Pro (oryp6)"
 echo "2) Galago Pro (galp3-b)"
 echo "3) Galago Pro (galp4)"
-echo "4) HP Omen (15-dh0015nr)"
-echo "5) Pinebook Pro"
-echo "6) Virtual Machine"
+echo "4) Thelio NVIDIA (thelio-b1)"
+echo "5) HP Omen (15-dh0015nr)"
+echo "6) Pinebook Pro"
+echo "7) Virtual Machine"
 echo "0) None or N/A"
 read deviceChoice
 
@@ -160,16 +161,19 @@ elif [ $deviceChoice = 3 ]; then
    sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 4 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/thelio-nvidia.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+
+elif [ $deviceChoice = 5 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
 
-elif [ $deviceChoice = 5 ]; then
+elif [ $deviceChoice = 6 ]; then
    #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; s
    #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
 
-elif [ $deviceChoice = 6 ]; then
+elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 fi
 
