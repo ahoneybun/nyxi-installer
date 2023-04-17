@@ -67,20 +67,6 @@ fi
 # List the new partitions.
 lsblk -f
 
-# Format the partitions :
-echo "----------"
-echo ""
-echo "Which is the EFI partition?"
-read efiName
-
-echo ""
-echo "Which is the root partition?"
-read rootName
-
-echo ""
-echo "Which is the swap partition?"
-read swapName
-
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName       
 
