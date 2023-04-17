@@ -24,17 +24,11 @@ echo +1G     # Set +1G as last sector.
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
-echo -4G     # Set -4G as last sector.
-echo n       # Create new partition (for root).
-echo         # Set default partition number.
-echo         # Set default first sector.
 echo         # Set last sector.
 echo t       # Change partition type.
 echo 1       # Pick first partition.
 echo 1       # Change first partition to EFI system.
 echo t       # Change partition type.
-echo 3       # Pick the last partition. 
-echo 19      # Change last partition to Swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
