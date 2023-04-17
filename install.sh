@@ -35,6 +35,22 @@ echo 19      # Change last partition to Swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
+if [ $driveName == /dev/nvme* ]; then
+  # Format the NVMe drive with the ext4 filesystem
+  mkfs.ext4 $DEVICE_PATH
+
+# Check if the device is a SATA drive
+elif [ $driveName == /dev/sd* ]; then
+  # Format the SATA drive with the NTFS filesystem
+  mkfs.ntfs $DEVICE_PATH
+
+# Check if the device is an eMMC drive
+elif [ $driveName == /dev/mmcblk* ]; then
+  # Format the eMMC drive with the FAT32 filesystem
+  mkfs.fat -F 32 $DEVICE_PATH
+
+fi
+
 # List the new partitions.
 lsblk -f
 
