@@ -51,9 +51,9 @@ elif [ $driveName == /dev/sd* ]; then
 # Check if the device is a Virtual drive
 elif [ $driveName == /dev/vd* ]; then
   # Set variables
-  efiName=${driveName}1
-  rootName=${driveName}2
-  swapName=${driveName}3
+  efiName={$driveName}1
+  rootName={$driveName}2
+  swapName={$driveName}3
 
 # Check if the device is an eMMC drive
 elif [ $driveName == /dev/mmcblk* ]; then
