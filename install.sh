@@ -161,7 +161,7 @@ elif [ $deviceChoice = 3 ]; then
    sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/thelio-nvidia.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   
 
 elif [ $deviceChoice = 5 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
@@ -179,6 +179,9 @@ fi
 
 # Replace LUKS device
 sudo sed -i "s#/dev/sda#$rootName#g" /mnt/etc/nixos/configuration.nix
+
+# Disable latest kernel for Thelio with NVIDIA GPU
+sudo sed -i "s/boot.kernelPackages/# boot.kernelPackages/g" /mnt/etc/nixos/configuration.nix
 
 # Install
 sudo nixos-install
