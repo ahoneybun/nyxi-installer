@@ -70,6 +70,7 @@ lsblk -f
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName       
 
+echo $efiName
 sleep 120
 
 # Encrypt the root partition
