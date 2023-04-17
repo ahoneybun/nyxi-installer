@@ -161,11 +161,12 @@ elif [ $deviceChoice = 3 ]; then
    sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 4 ]; then
-   
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./thelio-nvidia.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 5 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
+   sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 6 ]; then
    #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; s
