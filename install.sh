@@ -175,7 +175,7 @@ elif [ $deviceChoice = 6 ]; then
    sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 7 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/luks/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 fi
 
 # Replace LUKS device
