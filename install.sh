@@ -28,7 +28,6 @@ echo         # Set last sector.
 echo t       # Change partition type.
 echo 1       # Pick first partition.
 echo 1       # Change first partition to EFI system.
-echo t       # Change partition type.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
