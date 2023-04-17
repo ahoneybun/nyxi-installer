@@ -70,6 +70,8 @@ lsblk -f
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName       
 
+sleep 120
+
 # Encrypt the root partition
 sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
 
@@ -94,8 +96,6 @@ sudo mount /dev/mapper/lvm-root /mnt
 # Create Subvolumes
 sudo btrfs subvolume create /mnt/@root
 sudo btrfs subvolume create /mnt/@home
-
-sleep 120
 
 # Unmount root
 sudo umount /mnt
