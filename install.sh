@@ -35,43 +35,24 @@ echo 19      # Change last partition to Swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
-if [ $driveName = /dev/nvme* ]; then
-  # Set variables
-  efiName=${driveName}p1
-  rootName=${driveName}p2
-  swapName=${driveName}p3
-
-# Check if the device is a SATA drive
-elif [ $driveName = /dev/sd* ]; then
-  # Set variables
-  efiName=${driveName}1
-  rootName=${driveName}2
-  swapName=${driveName}3
-
-# Check if the device is a Virtual drive
-elif [ $driveName = /dev/vd* ]; then
-  # Set variables
-  efiName="{$driveName}1"
-  rootName="{$driveName}2"
-  swapName="{$driveName}3"
-
-# Check if the device is an eMMC drive
-elif [ $driveName = /dev/mmcblk* ]; then
-  # Set variables
-  efiName=${driveName}1
-  rootName=${driveName}2
-  swapName=${driveName}3
-
-fi
-
 # List the new partitions.
 lsblk -f
 
+echo "----------"
+echo ""
+echo "Which is the EFI partition?"
+read efiName
+
+echo ""
+echo "Which is the root partition?"
+read rootName
+
+echo ""
+echo "Which is the swap partition?"
+read swapName
+
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName       
-
-echo $efiName
-sleep 120
 
 # Encrypt the root partition
 sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
