@@ -97,36 +97,6 @@ curl https://gitlab.com/ahoneybun/nix-configs/-/raw/luks/configuration.nix > con
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
 echo ""
-echo "Which Desktop Environment do you want?"
-echo "1) Plasma"
-echo "2) GNOME"
-echo "3) Pantheon"
-echo "4) Sway"
-echo "0) None or N/A"
-read desktopChoice
-
-# Change the URL to match where you are hosting your DE/WM .nix file
-# Update the second command to the file name that matches your DE/WM .nix file
-
-if [ $desktopChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./plasma.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $desktopChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./gnome.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $desktopChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./pantheon.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $desktopChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/sway.nix > sway.nix; sudo mv -f sway.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./sway.nix" /mnt/etc/nixos/configuration.nix
-
-fi
-
-echo ""
 echo "Which device are you installing to?"
 echo "1) Oryx Pro (oryp6)"
 echo "2) Galago Pro (galp3-b)"
@@ -171,6 +141,36 @@ elif [ $deviceChoice = 6 ]; then
 
 elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/luks/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+fi
+
+echo ""
+echo "Which Desktop Environment do you want?"
+echo "1) Plasma"
+echo "2) GNOME"
+echo "3) Pantheon"
+echo "4) Sway"
+echo "0) None or N/A"
+read desktopChoice
+
+# Change the URL to match where you are hosting your DE/WM .nix file
+# Update the second command to the file name that matches your DE/WM .nix file
+
+if [ $desktopChoice = 1 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./plasma.nix" /mnt/etc/nixos/configuration.nix
+
+elif [ $desktopChoice = 2 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./gnome.nix" /mnt/etc/nixos/configuration.nix
+
+elif [ $desktopChoice = 3 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./pantheon.nix" /mnt/etc/nixos/configuration.nix
+
+elif [ $desktopChoice = 4 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/sway.nix > sway.nix; sudo mv -f sway.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./sway.nix" /mnt/etc/nixos/configuration.nix
+
 fi
 
 # Replace LUKS device
