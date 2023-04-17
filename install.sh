@@ -95,6 +95,8 @@ sudo mount /dev/mapper/lvm-root /mnt
 sudo btrfs subvolume create /mnt/@root
 sudo btrfs subvolume create /mnt/@home
 
+sleep 120
+
 # Unmount root
 sudo umount /mnt
 
