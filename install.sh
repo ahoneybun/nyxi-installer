@@ -2,6 +2,9 @@
 # then sets it as a variable for hibernation support
 ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'})
 
+# Set append for drive automation
+APPEND=""
+
 # Detect and list the drives.
 lsblk -f
 
@@ -38,18 +41,16 @@ echo w       # write changes.
 # List the new partitions.
 lsblk -f
 
-echo "----------"
-echo ""
-echo "Which is the EFI partition?"
-read efiName
+if [[ "$driveName" == "/dev/nvme"* || "$driveName" == "/dev/mmcblk0"* ]]; then
+  APPEND="p"
+fi
 
-echo ""
-echo "Which is the root partition?"
-read rootName
-
-echo ""
-echo "Which is the swap partition?"
-read swapName
+efiName=${driveName}$APPEND
+efiName+=1
+rootName=${driveName}$APPEND
+rootName+=2
+swapName=${driveName}$APPEND
+swapName+=3
 
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName       
