@@ -134,9 +134,8 @@ elif [ $deviceChoice = 5 ]; then
    sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 6 ]; then
-   #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; s
-   #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
+   #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/aarch64/jaal/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/aarch64/jaal/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 7 ]; then
