@@ -112,25 +112,25 @@ read deviceChoice
 # Update the second command to the file name that matches your system .nix file
 
 if [ $deviceChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./oryp6.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/galp3-b.nix > galp3-b.nix; sudo mv -f galp3-b.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/garrus/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./galp3-b.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/galp4.nix > galp4.nix; sudo mv -f galp4.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/galp4.nix > galp4.nix; sudo mv -f galp4.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./thelio-nvidia.nix" /mnt/etc/nixos/configuration.nix 
    # Disable latest kernel for Thelio with NVIDIA GPU
    sudo sed -i "s/boot.kernelPackages/# boot.kernelPackages/g" /mnt/etc/nixos/configuration.nix
 
 elif [ $deviceChoice = 5 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
 
 elif [ $deviceChoice = 6 ]; then
