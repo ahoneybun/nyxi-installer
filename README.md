@@ -6,8 +6,7 @@ At the core of this installer it does the following:
 
 - Partition the drive of your choice
 - Installs a base of NixOS (`configuration.nix`)
-- Installs a DE/WM of your choice (currently supporting GNOME and Plasma)
-- Installs needed packages (`programs.nix`)
+- Installs a DE/WM of your choice (currently supporting GNOME, Plasma, Pantheon and Sway)
 - Installs needed packages for certain hardware 
 
 nix files are from [this repo](https://gitlab.com/ahoneybun/nix-configs/) but that can be changed as needed.
@@ -15,11 +14,9 @@ nix files are from [this repo](https://gitlab.com/ahoneybun/nix-configs/) but th
 Tested on the following drives:
 - SATA 
 - NVMe
-- eMMC
 
 Tested on the following architectures:
 - x86_64 
-- aarch64 
 
 This sets the hashedPassword to my own so you will need to update it to match your own as well as the username. I created the hash with this command:
 

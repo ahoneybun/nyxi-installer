@@ -2,6 +2,9 @@
 # then sets it as a variable for hibernation support
 ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'})
 
+# Set append for drive automation
+APPEND=""
+
 # Detect and list the drives.
 lsblk -f
 
@@ -21,51 +24,65 @@ echo +1G     # Set +1G as last sector.
 echo n       # Create new partition (for root).
 echo         # Set default partition number.
 echo         # Set default first sector.
-echo -4G     # Set -4G as last sector.
-echo n       # Create new partition (for root).
-echo         # Set default partition number.
-echo         # Set default first sector.
 echo         # Set last sector.
 echo t       # Change partition type.
 echo 1       # Pick first partition.
 echo 1       # Change first partition to EFI system.
-echo t       # Change partition type.
-echo 3       # Pick the last partition. 
-echo 19      # Change last partition to Swap.
 echo w       # write changes. 
 ) | sudo fdisk $driveName -w always -W always
 
 # List the new partitions.
 lsblk -f
 
-# Format the partitions :
-echo "----------"
-echo ""
-echo "Which is the EFI partition?"
-read efiName
+if [[ "$driveName" == "/dev/nvme"* || "$driveName" == "/dev/mmcblk0"* ]]; then
+  APPEND="p"
+fi
 
-echo ""
-echo "Which is the root partition?"
-read rootName
-
-echo ""
-echo "Which is the swap partition?"
-read swapName
+efiName=${driveName}$APPEND
+efiName+=1
+rootName=${driveName}$APPEND
+rootName+=2
+swapName=${driveName}$APPEND
+swapName+=3
 
 # Create EFI partition
 sudo mkfs.fat -F32 -n EFI $efiName       
 
-sudo mkswap $swapName      # swap partition
-sudo mkfs.ext4 $rootName   # /root partition
-sudo e2label $rootName NixOS
+# Encrypt the root partition
+sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
 
-# 0. Mount the filesystems.
-sudo swapon $swapName
-sudo mount $rootName /mnt
+# Open the encrypted root partition
+sudo cryptsetup luksOpen $rootName crypt-root
+
+sudo pvcreate /dev/mapper/crypt-root
+sudo vgcreate lvm /dev/mapper/crypt-root
+
+sudo lvcreate -L 4G -n swap lvm
+sudo lvcreate -l '100%FREE' -n root lvm
+
+sudo cryptsetup config $rootName --label luks
+
+sudo mkswap /dev/lvm/swap              # swap partition
+sudo mkfs.btrfs -L root /dev/mapper/lvm-root  # /root partition
+
+# Mount the filesystems.
+sudo swapon /dev/mapper/lvm-swap
+sudo mount /dev/mapper/lvm-root /mnt
+
+# Create Subvolumes
+sudo btrfs subvolume create /mnt/@root
+sudo btrfs subvolume create /mnt/@home
+
+# Unmount root
+sudo umount /mnt
+
+# Mount the subvolumes.
+sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@root /dev/lvm/root /mnt
+sudo mkdir /mnt/home
+sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
 
 # Mount the EFI partition.
-sudo mkdir /mnt/boot/
-sudo mount $efiName /mnt/boot
+sudo mount --mkdir $efiName /mnt/boot/
 
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
@@ -76,14 +93,61 @@ sudo nixos-generate-config --root /mnt
 echo "Default username and password are in the configuration.nix file"
 echo "Password is hashed so it is not plaintext"
 
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/luks/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
+
+echo ""
+echo "Which device are you installing to?"
+echo "1) Oryx Pro (oryp6)"
+echo "2) Galago Pro (galp3-b)"
+echo "3) Galago Pro (galp4)"
+echo "4) Thelio NVIDIA (thelio-b1)"
+echo "5) HP Omen (15-dh0015nr)"
+echo "6) Pinebook Pro"
+echo "7) Virtual Machine"
+echo "0) None or N/A"
+read deviceChoice
+
+# Change the URL to match where you are hosting your system .nix file
+# Update the second command to the file name that matches your system .nix file
+
+if [ $deviceChoice = 1 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./oryp6.nix" /mnt/etc/nixos/configuration.nix 
+
+elif [ $deviceChoice = 2 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/garrus/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./galp3-b.nix" /mnt/etc/nixos/configuration.nix 
+
+elif [ $deviceChoice = 3 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/galp4.nix > galp4.nix; sudo mv -f galp4.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
+
+elif [ $deviceChoice = 4 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./thelio-nvidia.nix" /mnt/etc/nixos/configuration.nix 
+   # Disable latest kernel for Thelio with NVIDIA GPU
+   sudo sed -i "s/boot.kernelPackages/# boot.kernelPackages/g" /mnt/etc/nixos/configuration.nix
+
+elif [ $deviceChoice = 5 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
+
+elif [ $deviceChoice = 6 ]; then
+   #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/aarch64/jaal/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/aarch64/jaal/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
+
+elif [ $deviceChoice = 7 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/luks/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+fi
 
 echo ""
 echo "Which Desktop Environment do you want?"
 echo "1) Plasma"
 echo "2) GNOME"
 echo "3) Pantheon"
+echo "4) Sway"
 echo "0) None or N/A"
 read desktopChoice
 
@@ -93,60 +157,23 @@ read desktopChoice
 if [ $desktopChoice = 1 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
    sudo sed -i "10 i \           ./plasma.nix" /mnt/etc/nixos/configuration.nix
-else
 
-if [ $desktopChoice = 2 ]; then
+elif [ $desktopChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo sed -i "10 i \           ./gnome.nix" /mnt/etc/nixos/configuration.nix
-fi
 
-if [ $desktopChoice = 3 ]; then
+elif [ $desktopChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
    sudo sed -i "10 i \           ./pantheon.nix" /mnt/etc/nixos/configuration.nix
-fi
+
+elif [ $desktopChoice = 4 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/sway.nix > sway.nix; sudo mv -f sway.nix /mnt/etc/nixos/
+   sudo sed -i "10 i \           ./sway.nix" /mnt/etc/nixos/configuration.nix
 
 fi
 
-echo ""
-echo "Which device are you installing to?"
-echo "1) Oryx Pro (oryp6)"
-echo "2) Galago Pro (galp3-b)"
-echo "3) Galago Pro (galp4)"
-echo "4) HP Omen (15-dh0015nr)"
-echo "5) Pinebook Pro"
-echo "0) None or N/A"
-read deviceChoice
-
-# Change the URL to match where you are hosting your system .nix file
-# Update the second command to the file name that matches your system .nix file
-
-if [ $deviceChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./oryp6.nix" /mnt/etc/nixos/configuration.nix 
-else
-
-if [ $deviceChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/galp3-b.nix > galp3-b.nix; sudo mv -f galp3-b.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./galp3-b.nix" /mnt/etc/nixos/configuration.nix 
-fi
-
-if [ $deviceChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/galp4.nix > galp4.nix; sudo mv -f galp4.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
-fi
-
-if [ $deviceChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
-fi
-
-if [ $deviceChoice = 5 ]; then
-   #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
-fi
-
-fi
+# Replace LUKS device
+sudo sed -i "s#/dev/sda#$rootName#g" /mnt/etc/nixos/configuration.nix
 
 # Install
 sudo nixos-install
