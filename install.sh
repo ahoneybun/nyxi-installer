@@ -93,18 +93,17 @@ sudo nixos-generate-config --root /mnt
 echo "Default username and password are in the configuration.nix file"
 echo "Password is hashed so it is not plaintext"
 
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/luks/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
 echo ""
 echo "Which device are you installing to?"
-echo "1) Oryx Pro (oryp6)"
-echo "2) Galago Pro (galp3-b)"
-echo "3) Galago Pro (galp4)"
-echo "4) Thelio NVIDIA (thelio-b1)"
-echo "5) HP Omen (15-dh0015nr)"
-echo "6) Pinebook Pro"
-echo "7) Virtual Machine"
+echo "1) Galago Pro (galp3-b)"
+echo "2) Darter Pro (darp9)"
+echo "3) Thelio NVIDIA (thelio-b1)"
+echo "4) HP Omen (15-dh0015nr)"
+echo "5) Pinebook Pro"
+echo "6) Virtual Machine"
 echo "0) None or N/A"
 read deviceChoice
 
@@ -112,34 +111,29 @@ read deviceChoice
 # Update the second command to the file name that matches your system .nix file
 
 if [ $deviceChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/oryp6.nix > oryp6.nix; sudo mv -f oryp6.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./oryp6.nix" /mnt/etc/nixos/configuration.nix 
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/garrus/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./galp3-b.nix" /mnt/etc/nixos/configuration.nix
 
 elif [ $deviceChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/garrus/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./galp3-b.nix" /mnt/etc/nixos/configuration.nix 
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/darp9.nix > darp9.nix; sudo mv -f darp9.nix /mnt/etc/nixos/
+   sudo sed -i "11 i \           ./darp9.nix" /mnt/etc/nixos/configuration.nix
 
 elif [ $deviceChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/galp4.nix > galp4.nix; sudo mv -f galp4.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./galp4.nix" /mnt/etc/nixos/configuration.nix 
-
-elif [ $deviceChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./thelio-nvidia.nix" /mnt/etc/nixos/configuration.nix 
    # Disable latest kernel for Thelio with NVIDIA GPU
    sudo sed -i "s/boot.kernelPackages/# boot.kernelPackages/g" /mnt/etc/nixos/configuration.nix
 
-elif [ $deviceChoice = 5 ]; then
+elif [ $deviceChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
 
-elif [ $deviceChoice = 6 ]; then
-   #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/aarch64/jaal/pinebook-pro.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+elif [ $deviceChoice = 5 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/aarch64/jaal/pbp.nix > pbp.nix; sudo mv -f pbp.nix /mnt/etc/nixos/
    sudo sed -i "11 i \           ./pbp.nix" /mnt/etc/nixos/configuration.nix 
 
-elif [ $deviceChoice = 7 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/luks/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+elif [ $deviceChoice = 6 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 fi
 
 echo ""
