@@ -62,7 +62,7 @@ The following will happen:
 - Creates a 1GB EFI partiton at `/dev/***1`.
 - Creates a 4GB Swap partition at `/dev/***3`.
 - Creates a root partition with the rest of the space at `/dev/***2`.
-- Installs GRUB
+- Installs systemd-boot
 
 ## Roadmap
 
