@@ -45,44 +45,15 @@ rootName+=2
 swapName=${driveName}$APPEND
 swapName+=3
 
-# Create EFI partition
-sudo mkfs.fat -F32 -n EFI $efiName       
+# Download Disko file
+cd /tmp
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/partitions/luks-btrfs-subvolumes.nix -o /tmp/disko-config.nix
 
-# Encrypt the root partition
-sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
+# Replace drive in Disko file
+sudo sed -i "s#/dev/vdb#$rootName#g" /tmp/disko-config.nix
 
-# Open the encrypted root partition
-sudo cryptsetup luksOpen $rootName crypt-root
-
-sudo pvcreate /dev/mapper/crypt-root
-sudo vgcreate lvm /dev/mapper/crypt-root
-
-sudo lvcreate -L 4G -n swap lvm
-sudo lvcreate -l '100%FREE' -n root lvm
-
-sudo cryptsetup config $rootName --label luks
-
-sudo mkswap /dev/lvm/swap              # swap partition
-sudo mkfs.btrfs -L root /dev/mapper/lvm-root  # /root partition
-
-# Mount the filesystems.
-sudo swapon /dev/mapper/lvm-swap
-sudo mount /dev/mapper/lvm-root /mnt
-
-# Create Subvolumes
-sudo btrfs subvolume create /mnt/@root
-sudo btrfs subvolume create /mnt/@home
-
-# Unmount root
-sudo umount /mnt
-
-# Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@root /dev/lvm/root /mnt
-sudo mkdir /mnt/home
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
-
-# Mount the EFI partition.
-sudo mount --mkdir $efiName /mnt/boot/
+# Run Disko to partition the disk
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
 
 # Generate Nix configuration
 sudo nixos-generate-config --root /mnt
