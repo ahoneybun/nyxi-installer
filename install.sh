@@ -14,7 +14,8 @@ read driveName
 
 # Download Disko file
 cd /tmp
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/partitions/simple-efi.nix -o /tmp/disko-config.nix
+#curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/partitions/simple-efi.nix -o /tmp/disko-config.nix
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/partitions/luks-btrfs-subvolumes.nix -o /tmp/disko-config.nix
 
 # Replace drive in Disko file
 sudo sed -i "s#/dev/sda#$driveName#g" /tmp/disko-config.nix
