@@ -31,10 +31,10 @@ swapName+=3
 
 # Download Disko file
 cd /tmp
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/partitions/luks-btrfs-subvolumes.nix -o /tmp/disko-config.nix
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/partitions/simple-efi.nix -o /tmp/disko-config.nix
 
 # Replace drive in Disko file
-sudo sed -i "s#/dev/vdb#$rootName#g" /tmp/disko-config.nix
+#sudo sed -i "s#/dev/vdb#$rootName#g" /tmp/disko-config.nix
 
 # Run Disko to partition the disk
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
