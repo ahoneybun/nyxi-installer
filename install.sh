@@ -2,9 +2,6 @@
 # then sets it as a variable for hibernation support
 ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'})
 
-# Set append for drive automation
-APPEND=""
-
 # Detect and list the drives.
 lsblk -f
 
@@ -15,26 +12,12 @@ echo ""
 echo "Which drive do we want to use for this installation?"
 read driveName
 
-# List the new partitions.
-lsblk -f
-
-if [[ "$driveName" == "/dev/nvme"* || "$driveName" == "/dev/mmcblk0"* ]]; then
-  APPEND="p"
-fi
-
-efiName=${driveName}$APPEND
-efiName+=1
-rootName=${driveName}$APPEND
-rootName+=2
-swapName=${driveName}$APPEND
-swapName+=3
-
 # Download Disko file
 cd /tmp
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/partitions/simple-efi.nix -o /tmp/disko-config.nix
 
 # Replace drive in Disko file
-#sudo sed -i "s#/dev/vdb#$rootName#g" /tmp/disko-config.nix
+sudo sed -i "s#/dev/vdb#$rootName#g" /tmp/disko-config.nix
 
 # Run Disko to partition the disk
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
