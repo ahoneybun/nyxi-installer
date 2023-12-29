@@ -14,7 +14,6 @@ read driveName
 
 # Download Disko file
 cd /tmp
-#curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/partitions/simple-efi.nix -o /tmp/disko-config.nix
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/partitions/luks-btrfs-subvolumes.nix -o /tmp/disko-config.nix
 
 # Replace drive in Disko file
@@ -24,8 +23,6 @@ sudo sed -i "s#/dev/sda#$driveName#g" /tmp/disko-config.nix
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
 
 # Generate Nix configuration
-#sudo nixos-generate-config --root /mnt
-
 sudo nixos-generate-config --no-filesystems --root /mnt
 sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 
