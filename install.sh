@@ -32,7 +32,7 @@ sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 echo "Default username and password are in the configuration.nix file"
 echo "Password is hashed so it is not plaintext"
 
-#curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
 cat << EOF
@@ -70,6 +70,8 @@ elif [ $deviceChoice = 4 ]; then
 
 elif [ $deviceChoice = 5 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
+   sudo sed -i 's#disko#"${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"#'  /mnt/etc/nixos/configuration.nix
+   sudo sed -i "10 i \           ./disko-config.nix" /mnt/etc/nixos/configuration.nix
    sudo sed -i "11 i \           ./thelio-nvidia.nix" /mnt/etc/nixos/configuration.nix 
    # Disable latest kernel for Thelio with NVIDIA GPU
    sudo sed -i "s/boot.kernelPackages/# boot.kernelPackages/g" /mnt/etc/nixos/configuration.nix
