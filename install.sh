@@ -82,8 +82,6 @@ elif [ $deviceChoice = 6 ]; then
 
 elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-   sudo sed -i 's#disko#"${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"#'  /mnt/etc/nixos/configuration.nix
-   sudo sed -i "10 i \           ./disko-config.nix" /mnt/etc/nixos/configuration.nix
    fi
 
 cat << EOF
@@ -117,9 +115,6 @@ elif [ $desktopChoice = 4 ]; then
    sudo sed -i "10 i \           ./sway.nix" /mnt/etc/nixos/configuration.nix
 
 fi
-
-# Replace LUKS device
-#sudo sed -i "s#/dev/sda#$rootName#g" /mnt/etc/nixos/configuration.nix
 
 # Install
 sudo nixos-install
