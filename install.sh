@@ -54,16 +54,18 @@ echo "Password is hashed so it is not plaintext"
 #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
-echo ""
-echo "Which device are you installing to?"
-echo "1) Home Desktop - Shepard"
-echo "2) Galago Pro (galp3-b) - Garrus"
-echo "3) HP Omen (15-dh0015nr)"
-echo "4) Pinebook Pro - Jaal"
-echo "5) Thelio NVIDIA (thelio-b1)"
-echo "6) Darter Pro (darp9)"
-echo "7) Virtual Machine"
-echo "0) None or N/A"
+cat << EOF
+
+Which device are you installing to?
+   1) Home Desktop - Shepard
+   2) Galago Pro (galp3-b) - Garrus
+   3) HP Omen (15-dh0015nr)
+   4) Pinebook Pro - Jaal
+   5) Thelio NVIDIA (thelio-b1)
+   6) Darter Pro (darp9)
+   7) Virtual Machine
+   0) None or N/A
+EOF
 read deviceChoice
 
 # Change the URL to match where you are hosting your system .nix file
