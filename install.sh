@@ -15,22 +15,6 @@ echo ""
 echo "Which drive do we want to use for this installation?"
 read driveName
 
-(
-echo g       # Create new GPT partition table
-echo n       # Create new partition (for EFI).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo +1G     # Set +1G as last sector.
-echo n       # Create new partition (for root).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo         # Set last sector.
-echo t       # Change partition type.
-echo 1       # Pick first partition.
-echo 1       # Change first partition to EFI system.
-echo w       # write changes. 
-) | sudo fdisk $driveName -w always -W always
-
 # List the new partitions.
 lsblk -f
 
