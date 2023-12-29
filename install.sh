@@ -14,7 +14,7 @@ read driveName
 
 # Download Disko file
 cd /tmp
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/partitions/simple-efi.nix -o /tmp/disko-config.nix
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/partitions/simple-efi.nix -o /tmp/disko-config.nix
 
 # Replace drive in Disko file
 sudo sed -i "s#/dev/vdb#$rootName#g" /tmp/disko-config.nix
