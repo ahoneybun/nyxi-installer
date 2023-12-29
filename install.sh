@@ -86,13 +86,15 @@ elif [ $deviceChoice = 7 ]; then
    sudo sed -i "10 i \           ./disko-config.nix" /mnt/etc/nixos/configuration.nix
    fi
 
-echo ""
-echo "Which Desktop Environment do you want?"
-echo "1) Plasma"
-echo "2) GNOME"
-echo "3) Pantheon"
-echo "4) Sway"
-echo "0) None or N/A"
+cat << EOF
+
+Which Desktop Environment do you want?
+   1) Plasma
+   2) GNOME
+   3) Pantheon
+   4) Sway
+   0) None or N/A
+EOF
 read desktopChoice
 
 # Change the URL to match where you are hosting your DE/WM .nix file
