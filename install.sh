@@ -97,7 +97,7 @@ elif [ $deviceChoice = 6 ]; then
 
 elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"" /mnt/etc/nixos/configuration.nix
+   sed -i 's#disko#"${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"#'  /mnt/etc/nixos/configuration.nix
    sudo sed -i "12 i \           ./disko-config.nix" /mnt/etc/nixos/configuration.nix
    
    ./disko-config.nix
