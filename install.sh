@@ -14,7 +14,7 @@ read driveName
 
 # Download Disko file
 cd /tmp
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/partitions/luks-btrfs-subvolumes.nix -o /tmp/disko-config.nix
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/partitions/luks-btrfs-subvolumes.nix -o /tmp/disko-config.nix
 
 # Replace drive in Disko file
 sudo sed -i "s#/dev/sda#$driveName#g" /tmp/disko-config.nix
@@ -32,7 +32,7 @@ sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 echo "Default username and password are in the configuration.nix file"
 echo "Password is hashed so it is not plaintext"
 
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
 cat << EOF
@@ -79,7 +79,7 @@ elif [ $deviceChoice = 6 ]; then
    sudo sed -i "11 i \           ./darp9.nix" /mnt/etc/nixos/configuration.nix
 
 elif [ $deviceChoice = 7 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/disko/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
    fi
 
 cat << EOF
