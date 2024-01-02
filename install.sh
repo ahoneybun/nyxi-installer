@@ -2,9 +2,6 @@
 # then sets it as a variable for hibernation support
 ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'})
 
-# Set append for drive automation
-APPEND=""
-
 # Detect and list the drives.
 lsblk -f
 
@@ -15,77 +12,19 @@ echo ""
 echo "Which drive do we want to use for this installation?"
 read driveName
 
-(
-echo g       # Create new GPT partition table
-echo n       # Create new partition (for EFI).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo +1G     # Set +1G as last sector.
-echo n       # Create new partition (for root).
-echo         # Set default partition number.
-echo         # Set default first sector.
-echo         # Set last sector.
-echo t       # Change partition type.
-echo 1       # Pick first partition.
-echo 1       # Change first partition to EFI system.
-echo w       # write changes. 
-) | sudo fdisk $driveName -w always -W always
+# Download Disko file
+cd /tmp
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/partitions/luks-btrfs-subvolumes.nix -o /tmp/disko-config.nix
 
-# List the new partitions.
-lsblk -f
+# Replace drive in Disko file
+sudo sed -i "s#/dev/sda#$driveName#g" /tmp/disko-config.nix
 
-if [[ "$driveName" == "/dev/nvme"* || "$driveName" == "/dev/mmcblk0"* ]]; then
-  APPEND="p"
-fi
-
-efiName=${driveName}$APPEND
-efiName+=1
-rootName=${driveName}$APPEND
-rootName+=2
-swapName=${driveName}$APPEND
-swapName+=3
-
-# Create EFI partition
-sudo mkfs.fat -F32 -n EFI $efiName       
-
-# Encrypt the root partition
-sudo cryptsetup luksFormat -v -s 512 -h sha512 $rootName
-
-# Open the encrypted root partition
-sudo cryptsetup luksOpen $rootName crypt-root
-
-sudo pvcreate /dev/mapper/crypt-root
-sudo vgcreate lvm /dev/mapper/crypt-root
-
-sudo lvcreate -L 4G -n swap lvm
-sudo lvcreate -l '100%FREE' -n root lvm
-
-sudo cryptsetup config $rootName --label luks
-
-sudo mkswap /dev/lvm/swap              # swap partition
-sudo mkfs.btrfs -L root /dev/mapper/lvm-root  # /root partition
-
-# Mount the filesystems.
-sudo swapon /dev/mapper/lvm-swap
-sudo mount /dev/mapper/lvm-root /mnt
-
-# Create Subvolumes
-sudo btrfs subvolume create /mnt/@root
-sudo btrfs subvolume create /mnt/@home
-
-# Unmount root
-sudo umount /mnt
-
-# Mount the subvolumes.
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@root /dev/lvm/root /mnt
-sudo mkdir /mnt/home
-sudo mount -o noatime,commit=120,compress=zstd:10,subvol=@home /dev/lvm/root /mnt/home
-
-# Mount the EFI partition.
-sudo mount --mkdir $efiName /mnt/boot/
+# Run Disko to partition the disk
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
 
 # Generate Nix configuration
-sudo nixos-generate-config --root /mnt
+sudo nixos-generate-config --no-filesystems --root /mnt
+sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 
 # Copy my base nix configs over
 # Change the URL to match where you are hosting your .nix file(s).
@@ -94,18 +33,20 @@ echo "Default username and password are in the configuration.nix file"
 echo "Password is hashed so it is not plaintext"
 
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
+#curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
 
-echo ""
-echo "Which device are you installing to?"
-echo "1) Home Desktop - Shepard"
-echo "2) Galago Pro (galp3-b) - Garrus"
-echo "3) HP Omen (15-dh0015nr)"
-echo "4) Pinebook Pro - Jaal"
-echo "5) Thelio NVIDIA (thelio-b1)"
-echo "6) Darter Pro (darp9)"
-echo "7) Virtual Machine"
-echo "0) None or N/A"
+cat << EOF
+
+Which device are you installing to?
+   1) Home Desktop - Shepard
+   2) Galago Pro (galp3-b) - Garrus
+   3) HP Omen (15-dh0015nr)
+   4) Pinebook Pro - Jaal
+   5) Thelio NVIDIA (thelio-b1)
+   6) Darter Pro (darp9)
+   7) Virtual Machine
+   0) None or N/A
+EOF
 read deviceChoice
 
 # Change the URL to match where you are hosting your system .nix file
@@ -139,15 +80,17 @@ elif [ $deviceChoice = 6 ]; then
 
 elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-fi
+   fi
 
-echo ""
-echo "Which Desktop Environment do you want?"
-echo "1) Plasma"
-echo "2) GNOME"
-echo "3) Pantheon"
-echo "4) Sway"
-echo "0) None or N/A"
+cat << EOF
+
+Which Desktop Environment do you want?
+   1) Plasma
+   2) GNOME
+   3) Pantheon
+   4) Sway
+   0) None or N/A
+EOF
 read desktopChoice
 
 # Change the URL to match where you are hosting your DE/WM .nix file
@@ -170,9 +113,6 @@ elif [ $desktopChoice = 4 ]; then
    sudo sed -i "10 i \           ./sway.nix" /mnt/etc/nixos/configuration.nix
 
 fi
-
-# Replace LUKS device
-sudo sed -i "s#/dev/sda#$rootName#g" /mnt/etc/nixos/configuration.nix
 
 # Install
 sudo nixos-install
