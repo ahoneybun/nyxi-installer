@@ -116,5 +116,26 @@ elif [ $desktopChoice = 4 ]; then
 fi
 
 # Install
-sudo nixos-install --impure --flake /mnt/etc/nixos#vm
+if [ $deviceChoice = 1 ]; then
+   echo "shepard"
+
+elif [ $deviceChoice = 2 ]; then
+   echo "garrus"
+
+elif [ $deviceChoice = 3 ]; then
+   echo "hp-omen"
+
+elif [ $deviceChoice = 4 ]; then
+   echo "pbp" 
+
+elif [ $deviceChoice = 5 ]; then
+   echo "thelio-nvidia"
+
+elif [ $deviceChoice = 6 ]; then
+   echo "darp9"
+
+elif [ $deviceChoice = 7 ]; then
+   sudo nixos-install --impure --flake /mnt/etc/nixos#vm
+   fi
+
 #sudo nixos-install
