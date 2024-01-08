@@ -79,7 +79,8 @@ elif [ $deviceChoice = 6 ]; then
    sudo sed -i "11 i \           ./darp9.nix" /mnt/etc/nixos/configuration.nix
 
 elif [ $deviceChoice = 7 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
    fi
 
 cat << EOF
@@ -115,4 +116,5 @@ elif [ $desktopChoice = 4 ]; then
 fi
 
 # Install
-sudo nixos-install
+sudo nixos-install --impure --flake /mnt/etc/nixos/flake.nix
+#sudo nixos-install
