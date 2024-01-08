@@ -116,5 +116,5 @@ elif [ $desktopChoice = 4 ]; then
 fi
 
 # Install
-sudo nixos-install --flake
+sudo nixos-install --flake /mnt/etc/nixos#vm
 #sudo nixos-install
