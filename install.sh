@@ -8,7 +8,6 @@ lsblk -f
 # Choice the drive to use :
 # 1. 
 echo "----------"
-echo ""
 echo "Which drive do we want to use for this installation?"
 read driveName
 
@@ -29,8 +28,10 @@ sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 # Copy my base nix configs over
 # Change the URL to match where you are hosting your .nix file(s).
 
-echo "Default username and password are in the configuration.nix file"
+echo ""
+echo "Default username and password are in the flake.nix file"
 echo "Password is hashed so it is not plaintext"
+echo ""
 
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
 #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
