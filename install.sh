@@ -82,7 +82,7 @@ elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
    #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 
-elif [ $deviceChoice = 7 ]; then
+elif [ $deviceChoice = 0 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
 
    fi
