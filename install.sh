@@ -45,7 +45,7 @@ Which device are you installing to?
    5) Thelio NVIDIA (thelio-b1)
    6) Darter Pro (darp9)
    7) Virtual Machine
-   0) None or N/A
+   0) Generic
 EOF
 read deviceChoice
 
@@ -81,6 +81,10 @@ elif [ $deviceChoice = 6 ]; then
 elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
    #curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+
+elif [ $deviceChoice = 7 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+
    fi
 
 cat << EOF
@@ -116,5 +120,5 @@ elif [ $desktopChoice = 4 ]; then
 fi
 
 # Install
-sudo nixos-install --flake /mnt/etc/nixos#vm
+sudo nixos-install --flake /mnt/etc/nixos#nixos
 #sudo nixos-install
