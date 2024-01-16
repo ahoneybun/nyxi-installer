@@ -44,6 +44,7 @@ Which device are you installing to?
    5) Thelio NVIDIA (thelio-b1)
    6) Darter Pro (darp9)
    7) Virtual Machine
+   8) HP Dev One
    0) Generic
 EOF
 read deviceChoice
@@ -75,42 +76,11 @@ elif [ $deviceChoice = 6 ]; then
 elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
 
+elif [ $deviceChoice = 8 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#dev-one
+
 elif [ $deviceChoice = 0 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
 
    fi
-
-# Step 4: Choosing a predefined desktop/window manager file to use
-
-cat << EOF
-
-Which Desktop Environment do you want?
-   1) Plasma
-   2) GNOME
-   3) Pantheon
-   4) Sway
-   0) None or N/A
-EOF
-read desktopChoice
-
-if [ $desktopChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./plasma.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $desktopChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./gnome.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $desktopChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./pantheon.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $desktopChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/sway.nix > sway.nix; sudo mv -f sway.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./sway.nix" /mnt/etc/nixos/configuration.nix
-
-fi
-
-# Install
-sudo nixos-install --flake /mnt/etc/nixos#nixos
-#sudo nixos-install
