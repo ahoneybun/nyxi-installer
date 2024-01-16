@@ -75,9 +75,11 @@ elif [ $deviceChoice = 6 ]; then
 
 elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#nixos
 
 elif [ $deviceChoice = 8 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#dev-one
 
 elif [ $deviceChoice = 0 ]; then
