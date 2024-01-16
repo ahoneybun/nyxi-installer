@@ -37,47 +37,18 @@ curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/home.nix > home.nix; s
 cat << EOF
 
 Which device are you installing to?
-   1) Home Desktop - Shepard
-   2) Galago Pro (galp3-b) - Garrus
-   3) HP Omen (15-dh0015nr)
-   4) Pinebook Pro - Jaal
-   5) Thelio NVIDIA (thelio-b1)
-   6) Darter Pro (darp9)
-   7) Virtual Machine
-   8) HP Dev One
+   1) Virtual Machine
+   2) HP Dev One
    0) Generic
 EOF
 read deviceChoice
 
 if [ $deviceChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/shepard/configuration.nix > shepard.nix; sudo mv -f shepard.nix /mnt/etc/nixos
-   sudo sed -i "11 i \           ./shepard.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $deviceChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/garrus/configuration.nix > garrus.nix; sudo mv -f garrus.nix /mnt/etc/nixos
-   sudo sed -i "11 i \           ./garrus.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $deviceChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/hp-omen/configuration.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos
-   sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
-
-elif [ $deviceChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/aarch64/jaal/pbp.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./jaal.nix" /mnt/etc/nixos/configuration.nix 
-
-elif [ $deviceChoice = 5 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos
-   sudo sed -i "11 i \           ./thelio-nvidia.nix" /mnt/etc/nixos/configuration.nix 
-
-elif [ $deviceChoice = 6 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/darp9.nix > darp9.nix; sudo mv -f darp9.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./darp9.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $deviceChoice = 7 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#nixos
 
-elif [ $deviceChoice = 8 ]; then
+elif [ $deviceChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#dev-one
