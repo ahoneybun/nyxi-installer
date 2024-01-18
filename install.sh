@@ -10,6 +10,7 @@ lsblk -f
 # Choice the drive to use :
 echo "----------"
 echo "Which drive do we want to use for this installation?"
+echo "For example /dev/sda or /dev/nvme0n1"
 read driveName
 
 # Download Disko file
