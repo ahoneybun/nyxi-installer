@@ -28,9 +28,6 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 sudo nixos-generate-config --no-filesystems --root /mnt
 sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 
-# Removes generated configuration file as it's being replaced with our own 
-sudo rm /mnt/etc/nixos/configuration.nix
-
 # Downloads and places the predefinded generic flake to use
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
@@ -49,6 +46,7 @@ read deviceChoice
 
 if [ $deviceChoice = 1 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#vm
 
 elif [ $deviceChoice = 2 ]; then
