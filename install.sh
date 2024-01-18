@@ -57,5 +57,6 @@ elif [ $deviceChoice = 2 ]; then
 
 elif [ $deviceChoice = 0 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#nixos
 
 fi
