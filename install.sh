@@ -46,12 +46,10 @@ EOF
 read deviceChoice
 
 if [ $deviceChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/vm.nix > vm.nix; sudo mv -f vm.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#vm
 
 elif [ $deviceChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#dev-one
 
