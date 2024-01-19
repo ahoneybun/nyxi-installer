@@ -53,6 +53,10 @@ elif [ $deviceChoice = 2 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#dev-one
 
+elif [ $deviceChoice = 3 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#thelio-b1
+
 elif [ $deviceChoice = 0 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#nixos
