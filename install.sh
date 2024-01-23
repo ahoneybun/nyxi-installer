@@ -41,6 +41,7 @@ cat << EOF
 Which device are you installing to?
    1) Virtual Machine
    2) HP Dev One
+   3) Thelio B1 (NVIDIA)
    0) Generic
 EOF
 read deviceChoice
