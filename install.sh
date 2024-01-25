@@ -42,6 +42,7 @@ Which device are you installing to?
    1) Virtual Machine
    2) HP Dev One
    3) Thelio B1 (NVIDIA)
+   4) Galago Pro 3b (Garrus)
    0) Generic
 EOF
 read deviceChoice
@@ -57,6 +58,10 @@ elif [ $deviceChoice = 2 ]; then
 elif [ $deviceChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#thelio-b1
+
+elif [ $deviceChoice = 4 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/systems/x86_64/garrus/configuration.nix > garrus.nix; sudo mv -f garrus.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#garrus
 
 elif [ $deviceChoice = 0 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
