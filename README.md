@@ -6,8 +6,8 @@ At the core of this installer it does the following:
 
 - Partition the drive of your choice
 - Installs a base of NixOS (`configuration.nix`)
-- Installs a DE/WM of your choice (currently supporting GNOME, Plasma, Pantheon and Sway)
 - Installs needed packages for certain hardware 
+- Installs home-manager, sets the home.nix file into /etc/nixos/ so that it is updated with the rest of the system
 
 nix files are from [this repo](https://gitlab.com/ahoneybun/nix-configs/) but that can be changed as needed.
 
@@ -20,8 +20,8 @@ Tested on the following architectures:
 
 This sets the hashedPassword to my own so you will need to update it to match your own as well as the username. I created the hash with this command:
 
-```
-sudo mkpasswd -m sha-512
+```bash
+mkpasswd -m sha-512
 ```
 
 ## Get Started
