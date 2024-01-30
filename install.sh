@@ -5,11 +5,12 @@ ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'})
 # Detect and list the drives.
 lsblk -f
 
+# Step 1: Choosing the drive for the installation
+
 # Choice the drive to use :
-# 1. 
 echo "----------"
-echo ""
 echo "Which drive do we want to use for this installation?"
+echo "For example /dev/sda or /dev/nvme0n1"
 read driveName
 
 # Download Disko file
@@ -19,6 +20,8 @@ curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/partitions/luks-btrfs-s
 # Replace drive in Disko file
 sudo sed -i "s#/dev/sda#$driveName#g" /tmp/disko-config.nix
 
+# Step 2: Partitioning the drive used for the installation
+
 # Run Disko to partition the disk
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
 
@@ -26,93 +29,44 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 sudo nixos-generate-config --no-filesystems --root /mnt
 sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 
-# Copy my base nix configs over
-# Change the URL to match where you are hosting your .nix file(s).
-
-echo "Default username and password are in the configuration.nix file"
-echo "Password is hashed so it is not plaintext"
-
+# Downloads and places the predefinded generic flake to use
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-#curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/programs.nix > programs.nix; sudo mv -f programs.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/home.nix > home.nix; sudo mv -f home.nix /mnt/etc/nixos/
+
+# Step 3: Choosing a predefined system flake file to use
 
 cat << EOF
 
 Which device are you installing to?
-   1) Home Desktop - Shepard
-   2) Galago Pro (galp3-b) - Garrus
-   3) HP Omen (15-dh0015nr)
-   4) Pinebook Pro - Jaal
-   5) Thelio NVIDIA (thelio-b1)
-   6) Darter Pro (darp9)
-   7) Virtual Machine
-   0) None or N/A
+   1) Virtual Machine
+   2) HP Dev One
+   3) Thelio B1 (NVIDIA)
+   4) Galago Pro 3b (Garrus)
+   0) Generic
 EOF
 read deviceChoice
 
-# Change the URL to match where you are hosting your system .nix file
-# Update the second command to the file name that matches your system .nix file
-
 if [ $deviceChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/shepard/configuration.nix > shepard.nix; sudo mv -f shepard.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./shepard.nix" /mnt/etc/nixos/configuration.nix
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > vm.nix; sudo mv -f vm.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#vm
 
 elif [ $deviceChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/garrus/configuration.nix > garrus.nix; sudo mv -f garrus.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./garrus.nix" /mnt/etc/nixos/configuration.nix
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#dev-one
 
 elif [ $deviceChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./hp-omen.nix" /mnt/etc/nixos/configuration.nix 
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#thelio-b1
 
 elif [ $deviceChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/aarch64/jaal/pbp.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./jaal.nix" /mnt/etc/nixos/configuration.nix 
-
-elif [ $deviceChoice = 5 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./thelio-nvidia.nix" /mnt/etc/nixos/configuration.nix 
-   # Disable latest kernel for Thelio with NVIDIA GPU
-   sudo sed -i "s/boot.kernelPackages/# boot.kernelPackages/g" /mnt/etc/nixos/configuration.nix
-
-elif [ $deviceChoice = 6 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/darp9.nix > darp9.nix; sudo mv -f darp9.nix /mnt/etc/nixos/
-   sudo sed -i "11 i \           ./darp9.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $deviceChoice = 7 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/vm.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-   fi
-
-cat << EOF
-
-Which Desktop Environment do you want?
-   1) Plasma
-   2) GNOME
-   3) Pantheon
-   4) Sway
-   0) None or N/A
-EOF
-read desktopChoice
-
-# Change the URL to match where you are hosting your DE/WM .nix file
-# Update the second command to the file name that matches your DE/WM .nix file
-
-if [ $desktopChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/plasma.nix > plasma.nix; sudo mv -f plasma.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./plasma.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $desktopChoice = 2 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/garrus/configuration.nix > garrus.nix; sudo mv -f garrus.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./gnome.nix" /mnt/etc/nixos/configuration.nix
+   sudo nixos-install --flake /mnt/etc/nixos#garrus
 
-elif [ $desktopChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/pantheon.nix > pantheon.nix; sudo mv -f pantheon.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./pantheon.nix" /mnt/etc/nixos/configuration.nix
-
-elif [ $desktopChoice = 4 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/sway.nix > sway.nix; sudo mv -f sway.nix /mnt/etc/nixos/
-   sudo sed -i "10 i \           ./sway.nix" /mnt/etc/nixos/configuration.nix
+elif [ $deviceChoice = 0 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#nixos
 
 fi
-
-# Install
-sudo nixos-install
