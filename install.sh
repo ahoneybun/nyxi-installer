@@ -67,7 +67,7 @@ elif [ $deviceChoice = 4 ]; then
    sudo nixos-install --flake /mnt/etc/nixos#garrus
 
 elif [ $deviceChoice = 5 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/rawmain/systems/x86_64/shepard/configuration.nix > shepard.nix; sudo mv -f shepard.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/systems/x86_64/shepard/configuration.nix > shepard.nix; sudo mv -f shepard.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#shepard
 
