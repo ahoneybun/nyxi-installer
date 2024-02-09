@@ -30,7 +30,7 @@ sudo nixos-generate-config --no-filesystems --root /mnt
 sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 
 ## Downloads and places the predefinded generic flake to use
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/add-nixos-hardware/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/home.nix > home.nix; sudo mv -f home.nix /mnt/etc/nixos/
 
@@ -41,9 +41,9 @@ cat << EOF
 Which device are you installing to?
    1) Virtual Machine
    2) HP Dev One
-   3) HP Omen
-   4) Thelio B1 (NVIDIA)
-   5) Galago Pro 3b (Garrus)
+   3) Thelio B1 (NVIDIA)
+   4) Galago Pro 3b (Garrus)
+   5) Pinebook Pro (Jaal)
    6) Nebula49 (Shepard)
    0) Generic
 EOF
@@ -58,19 +58,19 @@ elif [ $hostChoice = 2 ]; then
    sudo nixos-install --flake /mnt/etc/nixos#dev-one
 
 elif [ $hostChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/hp-omen.nix > hp-omen.nix; sudo mv -f hp-omen.nix /mnt/etc/nixos/
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sudo nixos-install --flake /mnt/etc/nixos#omen
-
-elif [ $hostChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#thelio-b1
 
-elif [ $hostChoice = 5 ]; then
+elif [ $hostChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/garrus/configuration.nix > garrus.nix; sudo mv -f garrus.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#garrus
+   
+elif [ $hostChoice = 5 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/aarch64/jaal/pinebook-pro.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#jaal
 
 elif [ $hostChoice = 6 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/shepard/configuration.nix > shepard.nix; sudo mv -f shepard.nix /mnt/etc/nixos/
