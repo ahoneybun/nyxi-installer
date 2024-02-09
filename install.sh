@@ -30,9 +30,9 @@ sudo nixos-generate-config --no-filesystems --root /mnt
 sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 
 ## Downloads and places the predefinded generic flake to use
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/add-nixos-hardware/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/add-nixos-hardware/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/add-nixos-hardware/home.nix > home.nix; sudo mv -f home.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/home.nix > home.nix; sudo mv -f home.nix /mnt/etc/nixos/
 
 # Step 3: Choosing a predefined system flake file to use
 
@@ -68,7 +68,7 @@ elif [ $hostChoice = 4 ]; then
    sudo nixos-install --flake /mnt/etc/nixos#garrus
    
 elif [ $hostChoice = 5 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/add-nixos-hardware/hosts/aarch64/jaal/configuration.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/aarch64/jaal/configuration.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#jaal
 
@@ -78,7 +78,7 @@ elif [ $hostChoice = 6 ]; then
    sudo nixos-install --flake /mnt/etc/nixos#shepard
 
 elif [ $hostChoice = 0 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/flake/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#nixos
 
 fi
