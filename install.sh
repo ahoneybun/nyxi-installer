@@ -68,7 +68,7 @@ elif [ $hostChoice = 4 ]; then
    sudo nixos-install --flake /mnt/etc/nixos#garrus
    
 elif [ $hostChoice = 5 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/add-nixos-hardware/hosts/aarch64/jaal/pinebook-pro.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/add-nixos-hardware/hosts/aarch64/jaal/configuration.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#jaal
 
