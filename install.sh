@@ -40,11 +40,9 @@ cat << EOF
 
 Which device are you installing to?
    1) Virtual Machine
-   2) HP Dev One
-   3) Thelio B1 (NVIDIA)
-   4) Galago Pro 3b (Garrus)
-   5) Pinebook Pro (Jaal)
-   6) Nebula49 (Shepard)
+   2) Galago Pro 3b (Garrus)
+   3) Pinebook Pro (Jaal)
+   4) Nebula49 (Shepard)
    0) Generic
 EOF
 read hostChoice
@@ -54,25 +52,16 @@ if [ $hostChoice = 1 ]; then
    sudo nixos-install --flake /mnt/etc/nixos#vm
 
 elif [ $hostChoice = 2 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sudo nixos-install --flake /mnt/etc/nixos#dev-one
-
-elif [ $hostChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/thelio-nvidia.nix > thelio-nvidia.nix; sudo mv -f thelio-nvidia.nix /mnt/etc/nixos/
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sudo nixos-install --flake /mnt/etc/nixos#thelio-b1
-
-elif [ $hostChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/garrus/configuration.nix > garrus.nix; sudo mv -f garrus.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#garrus
    
-elif [ $hostChoice = 5 ]; then
+elif [ $hostChoice = 3 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/aarch64/jaal/configuration.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#jaal
 
-elif [ $hostChoice = 6 ]; then
+elif [ $hostChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/shepard/configuration.nix > shepard.nix; sudo mv -f shepard.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#shepard
