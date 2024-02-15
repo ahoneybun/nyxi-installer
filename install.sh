@@ -43,6 +43,7 @@ Which device are you installing to?
    2) Galago Pro 3b (Garrus)
    3) Pinebook Pro (Jaal)
    4) Nebula49 (Shepard)
+   5) local Build Server (EDI)
    0) Generic
 EOF
 read hostChoice
@@ -65,6 +66,10 @@ elif [ $hostChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/shepard/configuration.nix > shepard.nix; sudo mv -f shepard.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#shepard
+
+elif [ $hostChoice = 5 ]; then
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/EDI/configuration.nix > edi.nix; sudo mv -f edi.nix /mnt/etc/nixos/
+   sudo nixos-install --flake /mnt/etc/nixos#edi
 
 elif [ $hostChoice = 0 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
