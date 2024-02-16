@@ -69,7 +69,7 @@ elif [ $hostChoice = 4 ]; then
 
 elif [ $hostChoice = 5 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/EDI/configuration.nix > edi.nix; sudo mv -f edi.nix /mnt/etc/nixos/
-   sudo nixos-install --flake /mnt/etc/nixos#edi
+   sudo nixos-install --flake /mnt/etc/nixos#EDI
 
 elif [ $hostChoice = 0 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
