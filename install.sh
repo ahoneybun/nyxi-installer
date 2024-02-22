@@ -42,7 +42,7 @@ Which device are you installing to?
    1) Virtual Machine
    2) Galago Pro 3b (Garrus)
    3) Pinebook Pro (Jaal)
-   4) Nebula49 (Shepard)
+   4) nebula49 (Shepard)
    5) local Build Server (EDI)
    0) Generic
 EOF
