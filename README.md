@@ -2,6 +2,12 @@
 
 This installer is named after my doggo Onyxia.
 
+## Starting the Installer
+
+```bash
+sh <(curl -L https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
+```
+
 At the core of this installer it does the following:
 
 - Partition the drive of your choice using Disko
