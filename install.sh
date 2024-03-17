@@ -30,7 +30,7 @@ sudo nixos-generate-config --no-filesystems --root /mnt
 sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 
 ## Downloads and places the predefinded generic flake to use
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/X13s/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/home.nix > home.nix; sudo mv -f home.nix /mnt/etc/nixos/
 
