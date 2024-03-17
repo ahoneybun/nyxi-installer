@@ -59,7 +59,7 @@ elif [ $hostChoice = 2 ]; then
    sudo nixos-install --flake /mnt/etc/nixos#garrus
    
 elif [ $hostChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/aarch64/drack/configuration.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/aarch64/drack/configuration.nix > drack.nix; sudo mv -f darck.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#drack
 
