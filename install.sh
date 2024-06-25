@@ -31,8 +31,8 @@ sudo mv /tmp/disko-config.nix /mnt/etc/nixos
 
 ## Downloads and places the predefinded generic flake to use
 curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/flake.nix > flake.nix; sudo mv -f flake.nix /mnt/etc/nixos/
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
-curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/home.nix > home.nix; sudo mv -f home.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/release-24.05/configuration.nix > configuration.nix; sudo mv -f configuration.nix /mnt/etc/nixos/
+curl https://gitlab.com/ahoneybun/nix-configs/-/raw/release-24.05/home.nix > home.nix; sudo mv -f home.nix /mnt/etc/nixos/
 
 # Step 3: Choosing a predefined system flake file to use
 
