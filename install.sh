@@ -40,7 +40,7 @@ cat << EOF
 
 Which device are you installing to?
    1) Virtual Machine
-   2) Galago Pro 3b (Garrus)
+   2) Galago Pro 5 (Garrus)
    3) Pinebook Pro (Jaal)
    4) nebula49 (Shepard)
    0) Generic
