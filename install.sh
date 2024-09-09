@@ -41,8 +41,7 @@ cat << EOF
 Which device are you installing to?
    1) Virtual Machine
    2) Galago Pro 5 (Garrus)
-   3) Pinebook Pro (Jaal)
-   4) nebula49 (Shepard)
+   3) nebula49 (Shepard)
    0) Generic
 EOF
 read hostChoice
@@ -57,11 +56,6 @@ elif [ $hostChoice = 2 ]; then
    sudo nixos-install --flake /mnt/etc/nixos#garrus
 
 elif [ $hostChoice = 3 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/aarch64/jaal/configuration.nix > jaal.nix; sudo mv -f jaal.nix /mnt/etc/nixos/
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
-   sudo nixos-install --flake /mnt/etc/nixos#jaal
-
-elif [ $hostChoice = 4 ]; then
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/shepard/configuration.nix > shepard.nix; sudo mv -f shepard.nix /mnt/etc/nixos/
    curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/desktops/gnome.nix > gnome.nix; sudo mv -f gnome.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#shepard
