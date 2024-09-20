@@ -47,7 +47,7 @@ EOF
 read hostChoice
 
 if [ $hostChoice = 1 ]; then
-   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/vm.nix > vm.nix; sudo mv -f vm.nix /mnt/etc/nixos/
+   curl https://gitlab.com/ahoneybun/nix-configs/-/raw/main/hosts/x86_64/configuration.nix > vm.nix; sudo mv -f vm.nix /mnt/etc/nixos/
    sudo nixos-install --flake /mnt/etc/nixos#vm
 
 elif [ $hostChoice = 2 ]; then
