@@ -5,7 +5,7 @@ This installer is named after my doggo Onyxia.
 ## Starting the Installer
 
 ```bash
-sh <(curl -L https://gitlab.com/ahoneybun/nyxi-installer/-/raw/main/install.sh)
+sh <(curl -L https://raw.githubusercontent.com/ahoneybun/nyxi-installer/refs/heads/main/install.sh)
 ```
 
 At the core of this installer it does the following:
@@ -15,7 +15,7 @@ At the core of this installer it does the following:
   - Uses home-manager to manage settings for GNOME (current desktop) and other applications for my user
 - Installs a base of NixOS (`configuration.nix`)
 
-nix files are from [this repo](https://gitlab.com/ahoneybun/nix-configs/) but that can be changed as needed.
+nix files are from [this repo](https://github.com/ahoneybun/nix-configs/) but that can be changed as needed.
 
 Tested on the following drives:
 - SATA 
